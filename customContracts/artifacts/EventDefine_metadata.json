@@ -1,0 +1,206 @@
+{
+	"compiler": {
+		"version": "0.8.22+commit.4fc1097e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "txIndex",
+						"type": "uint256"
+					}
+				],
+				"name": "ConfirmTransaction",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "balance",
+						"type": "uint256"
+					}
+				],
+				"name": "Deposit",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "txIndex",
+						"type": "uint256"
+					}
+				],
+				"name": "ExecuteTransaction",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "txIndex",
+						"type": "uint256"
+					}
+				],
+				"name": "RevokeConfirmation",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "txIndex",
+						"type": "uint256"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "value",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "bytes",
+						"name": "data",
+						"type": "bytes"
+					}
+				],
+				"name": "SubmitTransaction",
+				"type": "event"
+			}
+		],
+		"devdoc": {
+			"events": {
+				"ConfirmTransaction(address,uint256)": {
+					"details": "记录确认交易日志",
+					"params": {
+						"owner": "合约所有者提出的确认票",
+						"txIndex": "交易序号"
+					}
+				},
+				"Deposit(address,uint256,uint256)": {
+					"details": "接收外部账户转账记录",
+					"params": {
+						"amount": "交易金额",
+						"balance": "转账后合约账户的金额",
+						"sender": "转账的外部账户地址"
+					}
+				},
+				"ExecuteTransaction(address,uint256)": {
+					"details": "记录执行交易日志",
+					"params": {
+						"owner": "发起交易执行的合约所有者地址",
+						"txIndex": "合约的索引"
+					}
+				},
+				"RevokeConfirmation(address,uint256)": {
+					"details": "记录撤销交易日志",
+					"params": {
+						"owner": "合约所有者反悔撤销投票",
+						"txIndex": "交易序号"
+					}
+				},
+				"SubmitTransaction(address,uint256,address,uint256,bytes)": {
+					"details": "记录提交的交易日志",
+					"params": {
+						"data": "交易传递的二进制数据",
+						"owner": "交易的提交者",
+						"to": "交易的目的地址",
+						"txIndex": "交易的序号",
+						"value": "交易的金额"
+					}
+				}
+			},
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"customContracts/EventDefine.sol": "EventDefine"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"customContracts/EventDefine.sol": {
+			"keccak256": "0x0074f3efb05d44b75f29c50020cf8994ce80e3f7efc521b422cfb55166b39d4b",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://9f04e95cd2ddf3dd55ffed2b63d9334d8aea854896165ff1b6ea26bedfc03703",
+				"dweb:/ipfs/Qma5U99DUkT31f7bTD2J1excuc3P2z6c43x8wJCSK1zJ8p"
+			]
+		}
+	},
+	"version": 1
+}

@@ -16,11 +16,6 @@
 						"internalType": "uint256",
 						"name": "_numConfirmationsRequired",
 						"type": "uint256"
-					},
-					{
-						"internalType": "address",
-						"name": "_traderPeople",
-						"type": "address"
 					}
 				],
 				"stateMutability": "nonpayable",
@@ -162,84 +157,6 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "_txIndex",
-						"type": "uint256"
-					}
-				],
-				"name": "executeTransaction",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "getOwners",
-				"outputs": [
-					{
-						"internalType": "address[]",
-						"name": "",
-						"type": "address[]"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_txIndex",
-						"type": "uint256"
-					}
-				],
-				"name": "getTransaction",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "to",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "value",
-						"type": "uint256"
-					},
-					{
-						"internalType": "bytes",
-						"name": "data",
-						"type": "bytes"
-					},
-					{
-						"internalType": "bool",
-						"name": "executed",
-						"type": "bool"
-					},
-					{
-						"internalType": "uint256",
-						"name": "numConfirmations",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "getTransactionCount",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
 					},
@@ -269,25 +186,6 @@
 					}
 				],
 				"name": "isOwner",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"name": "isTraderPeople",
 				"outputs": [
 					{
 						"internalType": "bool",
@@ -341,48 +239,6 @@
 				"name": "revokeConfirmation",
 				"outputs": [],
 				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "_to",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_value",
-						"type": "uint256"
-					},
-					{
-						"internalType": "bytes",
-						"name": "_data",
-						"type": "bytes"
-					}
-				],
-				"name": "submitTransaction",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"name": "traderPeople",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -479,24 +335,6 @@
 						"_txIndex": "交易的索引"
 					}
 				},
-				"executeTransaction(uint256)": {
-					"details": "合约所有者中的一个或者交易员",
-					"params": {
-						"_txIndex": "交易的索引"
-					}
-				},
-				"getOwners()": {
-					"details": "返回合约拥有者"
-				},
-				"getTransaction(uint256)": {
-					"details": "返回某个交易信息",
-					"params": {
-						"_txIndex": "交易索引"
-					}
-				},
-				"getTransactionCount()": {
-					"details": "返回交易数量"
-				},
 				"revokeConfirmation(uint256)": {
 					"details": "合约所有者中的一个，撤销交易",
 					"params": {
@@ -514,7 +352,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"customContracts/MultiSigWallet.sol": "MultiSigWallet"
+			"customContracts/OwnerMultiSigWallet.sol": "OwnerMultiSigWallet"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -528,20 +366,20 @@
 		"remappings": []
 	},
 	"sources": {
-		"customContracts/MultiSigWallet.sol": {
-			"keccak256": "0x23e321929947a2864867cbaae308a5bdc0bbbaceda18ee24396b0741e4c5236b",
+		"customContracts/EventDefine.sol": {
+			"keccak256": "0x9714870fc2cc925002cdf2ec3f1ce0623b0c6462347e0224eadea306f65a8a84",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://7b695329ef56471f1202ad7c804ff286ac3e3cad6e7a407dc627d9128f960213",
-				"dweb:/ipfs/QmUg4EqkPcXhwK35HptRYKPL45f1YPgQ5sV4nibdmWpy6u"
+				"bzz-raw://6faad1ac670d7fe0ab3a8033883ff97971155ea365f9e74e62197ca0e9663a0d",
+				"dweb:/ipfs/QmTkHit3pSwNiwNgJVnhjuXfkfpw8TpPLRE5xmhNwM6mbb"
 			]
 		},
 		"customContracts/OwnerMultiSigWallet.sol": {
-			"keccak256": "0xa1638fc93ce2df2a8ac96c0a84f63a7296c3b8b2287989ba41dd84e322e85a97",
+			"keccak256": "0xcd5291577fe56f0387daf36305fc393ba44d7a3720ab6908aa5963b8d08950d0",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://f6268a2cbccafa707566cc8df625e91635b01f1a5bb0d419e2cbe203a8657d79",
-				"dweb:/ipfs/QmWMDDRhQ866TpXDZgZWC64XidG1Dwbwdc4q1CxPD1qdXU"
+				"bzz-raw://92135bd6693604f268e818c82b20c5bc8d334f39b880ff559b7df8af3d9ee1c0",
+				"dweb:/ipfs/QmYjsFjgeqHmkFXTB7yK6NmnHfPs2iPjLn9GE51cy7pYkc"
 			]
 		}
 	},
