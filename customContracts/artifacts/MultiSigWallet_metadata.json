@@ -16,6 +16,11 @@
 						"internalType": "uint256",
 						"name": "_numConfirmationsRequired",
 						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "_traderPeople",
+						"type": "address"
 					}
 				],
 				"stateMutability": "nonpayable",
@@ -350,6 +355,25 @@
 						"type": "uint256"
 					}
 				],
+				"name": "traderPeople",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
 				"name": "transactions",
 				"outputs": [
 					{
@@ -486,11 +510,11 @@
 	},
 	"sources": {
 		"customContracts/MultiSigWallet.sol": {
-			"keccak256": "0xf3ae3655fd28d05f5572087a527f6d2d4fbc7ce4f37136c9ffd5d41d6915a125",
+			"keccak256": "0x8b00aaa02201d359c6e46e946260fc03b15cdafdf0deca8f607d0edefafff4ad",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://9ee8ccfc309c9aabe7c8710edd98def3d7973b7b0a69cba98411e87fce75e067",
-				"dweb:/ipfs/QmZBmer6gkbvHVL7ptFP8BBnVCE4KMXNaJNu5pFfyJSs9L"
+				"bzz-raw://6616623d659431cd4e031e6d823bcab69c3f4a755b0327671d37132be7a8a241",
+				"dweb:/ipfs/QmR1z4jNcuYgjsWNTgh1jJaqpkDo2kUTYfSoDMfSxNCgLE"
 			]
 		}
 	},

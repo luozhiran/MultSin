@@ -57,7 +57,7 @@ contract MultiSigWallet {
     // 合约的所有者，可以授权交易的控制人
     address[] public owners;
 
-    // 交易的所有者，交易的所有者们，对发起的交易是否同意 false|true [不同意|同意]
+    // 交易的所有者，交易的所有者们，所有者地址 => true
     mapping(address => bool) public isOwner;
 
     // 合约的所有者赞成的票数，>= numConfirmationsRequired 才能发起交易
@@ -80,6 +80,13 @@ contract MultiSigWallet {
     mapping(uint => mapping(address=>bool)) public isConfirmed;
 
     Transaction[] public transactions;
+
+    // 交易员，可以发起[交易,执行交易]
+     address[] public traderPeople;
+
+    // 交易的所有者认可的交易员，所有者地址 => true
+    mapping(address => bool) public isTraderPeople;
+
 
 
 /*************************************************************************************************/
@@ -118,6 +125,14 @@ contract MultiSigWallet {
         _;
     }
 
+    /*
+     * @dev  校验是否是合约所有者认可的交易员
+     */
+    modifier onlyTraderPeopleOrOwner() {
+         require(isTraderPeople[msg.sender] || isOwner[msg.sender], "not trader people or not owner");
+         _;
+    }
+
 /*************************************************************************************************/
 /*                                  函数                                                         */
 /*************************************************************************************************/
@@ -126,11 +141,12 @@ contract MultiSigWallet {
      * @dev 合约构造函数
      * @param _owners 合约所有者
      * @param _numConfirmationsRequired 执行交易时，需要满足的赞成票数
+     * @param _traderPeople 交易员，可以发起交易，执行交易
      */
-    constructor(address[] memory _owners, uint _numConfirmationsRequired){
+    constructor(address[] memory _owners, uint _numConfirmationsRequired, address _traderPeople){
         require(_owners.length > 0, "owner required");
         require(_numConfirmationsRequired > 0 && _numConfirmationsRequired <= _owners.length, "invalid number of requred confirmations");
-        
+        require(address(0) == _traderPeople, "invalid trader people");
         for (uint i = 0; i < _owners.length; i++) {
             address owner = _owners[i];
             require(owner != address(0), "invalid owner");
@@ -140,6 +156,8 @@ contract MultiSigWallet {
         }
 
         numConfirmationsRequired = _numConfirmationsRequired;
+        isTraderPeople[_traderPeople] = true;
+        traderPeople.push(_traderPeople);
     }
 
 
@@ -155,7 +173,7 @@ contract MultiSigWallet {
      * @param _value 转出的金额
      * @param _data 传入的二进制数据
      */
-    function submitTransaction(address _to, uint _value, bytes memory _data) public onlyOwner {
+    function submitTransaction(address _to, uint _value, bytes memory _data) public onlyTraderPeopleOrOwner {
         uint txIndex = transactions.length;
         transactions.push(Transaction(
             {
@@ -183,10 +201,10 @@ contract MultiSigWallet {
     }
 
     /**
-     * @dev 合约所有者中的一个，对其他合约所有者发起的交易投赞成
+     * @dev 合约所有者中的一个或者交易员发起执行交易
      * @param _txIndex 交易的索引
      */
-    function executeTransaction(uint _txIndex) public onlyOwner txExists(_txIndex) notExecuted(_txIndex) {
+    function executeTransaction(uint _txIndex) public onlyTraderPeopleOrOwner txExists(_txIndex) notExecuted(_txIndex) {
         Transaction storage transaction = transactions[_txIndex];
         require(transaction.numConfirmations >= numConfirmationsRequired, "cannot execute tx");
         transaction.executed = true;
