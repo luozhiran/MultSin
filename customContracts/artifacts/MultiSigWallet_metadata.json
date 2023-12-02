@@ -299,6 +299,45 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "needConfirmTranction",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "value",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bytes",
+						"name": "data",
+						"type": "bytes"
+					},
+					{
+						"internalType": "bool",
+						"name": "executed",
+						"type": "bool"
+					},
+					{
+						"internalType": "uint256",
+						"name": "numConfirmations",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "numConfirmationsRequired",
 				"outputs": [
@@ -328,6 +367,19 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_txIndex",
+						"type": "uint256"
+					}
+				],
+				"name": "removeNeedConfirmTransactionIfExected",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -497,6 +549,12 @@
 				"getTransactionCount()": {
 					"details": "返回交易数量"
 				},
+				"removeNeedConfirmTransactionIfExected(uint256)": {
+					"details": "如果交易完成，删除需要确认的交易",
+					"params": {
+						"_txIndex": "交易索引"
+					}
+				},
 				"revokeConfirmation(uint256)": {
 					"details": "合约所有者中的一个，撤销交易",
 					"params": {
@@ -528,20 +586,28 @@
 		"remappings": []
 	},
 	"sources": {
-		"customContracts/MultiSigWallet.sol": {
-			"keccak256": "0x23e321929947a2864867cbaae308a5bdc0bbbaceda18ee24396b0741e4c5236b",
+		"customContracts/EventDefine.sol": {
+			"keccak256": "0x0074f3efb05d44b75f29c50020cf8994ce80e3f7efc521b422cfb55166b39d4b",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://7b695329ef56471f1202ad7c804ff286ac3e3cad6e7a407dc627d9128f960213",
-				"dweb:/ipfs/QmUg4EqkPcXhwK35HptRYKPL45f1YPgQ5sV4nibdmWpy6u"
+				"bzz-raw://9f04e95cd2ddf3dd55ffed2b63d9334d8aea854896165ff1b6ea26bedfc03703",
+				"dweb:/ipfs/Qma5U99DUkT31f7bTD2J1excuc3P2z6c43x8wJCSK1zJ8p"
+			]
+		},
+		"customContracts/MultiSigWallet.sol": {
+			"keccak256": "0x9be2f3de9bf92fa82d5c6fea71db077e6e379258c477033dda123ffd62395753",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://a5375e09905d6745303ef6d4f1eb5fcf75d59ea1a7f28242daf1176b7c934ed3",
+				"dweb:/ipfs/QmZmotrPvbr8bEsLuBwziBhtqE6h7aUPfy8Ymv7vCEjTS2"
 			]
 		},
 		"customContracts/OwnerMultiSigWallet.sol": {
-			"keccak256": "0xa1638fc93ce2df2a8ac96c0a84f63a7296c3b8b2287989ba41dd84e322e85a97",
+			"keccak256": "0x6fe1ce18daad5f9cfd7925f78e601d60e753b7d100d93b36c692bf14194f2758",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://f6268a2cbccafa707566cc8df625e91635b01f1a5bb0d419e2cbe203a8657d79",
-				"dweb:/ipfs/QmWMDDRhQ866TpXDZgZWC64XidG1Dwbwdc4q1CxPD1qdXU"
+				"bzz-raw://896e25ccfb7722d9580b4ec5cd0c8bc397f0a910483a167cea537040c42e8ed1",
+				"dweb:/ipfs/Qmf1xqev6QbGxWXYQwhsB27gUddVRuuicYoENGZjdoMjwU"
 			]
 		}
 	},

@@ -143,12 +143,154 @@
 			{
 				"inputs": [
 					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "aggressReplaceMap",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "agreeReplaceNewOwner",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "agreeTicketNum",
+				"outputs": [
+					{
+						"internalType": "uint8",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "candidateOwner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "uint256",
 						"name": "_txIndex",
 						"type": "uint256"
 					}
 				],
 				"name": "confirmTransaction",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getOwners",
+				"outputs": [
+					{
+						"internalType": "address[]",
+						"name": "",
+						"type": "address[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_txIndex",
+						"type": "uint256"
+					}
+				],
+				"name": "getTransaction",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "value",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bytes",
+						"name": "data",
+						"type": "bytes"
+					},
+					{
+						"internalType": "bool",
+						"name": "executed",
+						"type": "bool"
+					},
+					{
+						"internalType": "uint256",
+						"name": "numConfirmations",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getTransactionCount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_newOwner",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_replaceeOwner",
+						"type": "address"
+					}
+				],
+				"name": "inputCandidateOwner",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "invokeCandidateOwner",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -229,6 +371,26 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "replaceeOwner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "resetReplaceVote",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -274,6 +436,11 @@
 					{
 						"internalType": "uint256",
 						"name": "numConfirmations",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "txIndex",
 						"type": "uint256"
 					}
 				],
@@ -329,11 +496,39 @@
 			},
 			"kind": "dev",
 			"methods": {
+				"agreeReplaceNewOwner()": {
+					"details": "所有合约拥有者进行投票，全票投过生效 "
+				},
 				"confirmTransaction(uint256)": {
 					"details": "合约所有者中的一个，对其他合约所有者发起的交易投赞成",
 					"params": {
 						"_txIndex": "交易的索引"
 					}
+				},
+				"getOwners()": {
+					"details": "返回合约拥有者"
+				},
+				"getTransaction(uint256)": {
+					"details": "返回某个交易信息",
+					"params": {
+						"_txIndex": "交易索引"
+					}
+				},
+				"getTransactionCount()": {
+					"details": "返回交易数量"
+				},
+				"inputCandidateOwner(address,address)": {
+					"details": "输入候选owneer， 等待所有合约拥有者同意，则可以替换掉_replaceeOwner",
+					"params": {
+						"_newOwner": "新的合约拥有者",
+						"_replaceeOwner": "即将被替换的合约拥有者"
+					}
+				},
+				"invokeCandidateOwner()": {
+					"details": "启用新owner替换老owner "
+				},
+				"resetReplaceVote()": {
+					"details": "重置替换选举 "
 				},
 				"revokeConfirmation(uint256)": {
 					"details": "合约所有者中的一个，撤销交易",
@@ -367,19 +562,19 @@
 	},
 	"sources": {
 		"customContracts/EventDefine.sol": {
-			"keccak256": "0x9714870fc2cc925002cdf2ec3f1ce0623b0c6462347e0224eadea306f65a8a84",
+			"keccak256": "0x0074f3efb05d44b75f29c50020cf8994ce80e3f7efc521b422cfb55166b39d4b",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://6faad1ac670d7fe0ab3a8033883ff97971155ea365f9e74e62197ca0e9663a0d",
-				"dweb:/ipfs/QmTkHit3pSwNiwNgJVnhjuXfkfpw8TpPLRE5xmhNwM6mbb"
+				"bzz-raw://9f04e95cd2ddf3dd55ffed2b63d9334d8aea854896165ff1b6ea26bedfc03703",
+				"dweb:/ipfs/Qma5U99DUkT31f7bTD2J1excuc3P2z6c43x8wJCSK1zJ8p"
 			]
 		},
 		"customContracts/OwnerMultiSigWallet.sol": {
-			"keccak256": "0xcd5291577fe56f0387daf36305fc393ba44d7a3720ab6908aa5963b8d08950d0",
+			"keccak256": "0xf88ecd91ef012f6d45824a6d42f954b5400563264ce1411b64c922c6aa41acdb",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://92135bd6693604f268e818c82b20c5bc8d334f39b880ff559b7df8af3d9ee1c0",
-				"dweb:/ipfs/QmYjsFjgeqHmkFXTB7yK6NmnHfPs2iPjLn9GE51cy7pYkc"
+				"bzz-raw://87f1a02753dfe27f2c78acac8582ab63608116c0c88bf0a200333b1820b285c9",
+				"dweb:/ipfs/QmaUA5yZTs6aHh52p4CKbwm7p1uxWYXQk8S6XVdNHdBTca"
 			]
 		}
 	},

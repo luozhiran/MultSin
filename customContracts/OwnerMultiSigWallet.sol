@@ -29,6 +29,8 @@ contract OwnerMultiSigWallet is EventDefine {
         bool executed;
         // 赞成数
         uint numConfirmations;
+        // 交易的序列号
+        uint txIndex;
     }
 
     // 交易索引 => (合约所有者=>是否赞成)
@@ -36,6 +38,14 @@ contract OwnerMultiSigWallet is EventDefine {
 
     Transaction[] public transactions;
 
+    // 候选所有者，即将替换 ownner 数组中的拥有者
+    address public candidateOwner;
+    // 即将被替换掉的合约拥有者
+    address public replaceeOwner;
+    
+    //记录替换合约所有者投票结果
+    mapping(address => bool) public aggressReplaceMap;
+    uint8 public agreeTicketNum = 0;
 
 /*************************************************************************************************/
 /*                                  函数修改器                                                    */
@@ -94,7 +104,6 @@ contract OwnerMultiSigWallet is EventDefine {
             isOwner[owner] = true;
             owners.push(owner);
         }
-
         numConfirmationsRequired = _numConfirmationsRequired;
     }
 
@@ -127,6 +136,96 @@ contract OwnerMultiSigWallet is EventDefine {
         transaction.numConfirmations -= 1;
         isConfirmed[_txIndex][msg.sender] = false;
         emit RevokeConfirmation(msg.sender, _txIndex);
+    }
+
+    /**
+     * @dev 返回合约拥有者
+     */
+    function getOwners() public view returns(address[] memory) {
+        return owners;
+    }
+
+    /**
+     * @dev 返回交易数量
+     */
+   function getTransactionCount() public view returns (uint) {
+        return transactions.length;
+    }
+
+     /**
+     * @dev 返回某个交易信息
+     * @param _txIndex 交易索引
+     */
+    function getTransaction(uint _txIndex) public view returns (
+        address to,
+        uint value,
+        bytes memory data,
+        bool executed,
+        uint numConfirmations
+    ) {
+        require(_txIndex < transactions.length, "index out of bound");
+        Transaction storage transaction = transactions[_txIndex];
+        return (
+            transaction.to,
+            transaction.value,
+            transaction.data,
+            transaction.executed,
+            transaction.numConfirmations
+        );
+
+    } 
+
+
+    /**
+     * @dev 输入候选owneer， 等待所有合约拥有者同意，则可以替换掉_replaceeOwner
+     * @param _newOwner 新的合约拥有者
+     * @param _replaceeOwner 即将被替换的合约拥有者
+     */
+    function inputCandidateOwner(address _newOwner, address _replaceeOwner) public onlyOwner {
+         require(_newOwner != address(0) || _replaceeOwner != address(0), "invalid newOwner or replaceeOwner");
+         require(isOwner[msg.sender], "replaceeOwner is not ownner");
+         candidateOwner = _newOwner;
+         replaceeOwner = _replaceeOwner;
+    }
+
+    /**
+     * @dev 所有合约拥有者进行投票，全票投过生效
+     * 
+     */
+    function agreeReplaceNewOwner() public onlyOwner {
+        require(!aggressReplaceMap[msg.sender], "");
+        aggressReplaceMap[msg.sender] = true;
+        agreeTicketNum++;
+    }
+
+    /**
+     * @dev 重置替换选举
+     * 
+     */
+    function resetReplaceVote() public onlyOwner {
+       agreeTicketNum = 0;
+        for (uint i = 0; i < owners.length; i++) {
+            aggressReplaceMap[owners[i]] = false;
+        }
+    }
+
+    /**
+     * @dev 启用新owner替换老owner
+     * 
+     */
+    function invokeCandidateOwner() public onlyOwner {
+        require(candidateOwner != address(0) && replaceeOwner != address(0), "please input candidateOwner and replaceeOwner");
+        uint oldOwnerPosition = 0;
+        bool findIt = false;
+        for (uint i = 0; i < owners.length; i++) {
+            if (owners[i] == replaceeOwner) {
+                oldOwnerPosition = i;
+                findIt = true;
+                break;
+            }
+        }
+       require(findIt, "don't match owner");
+       owners[oldOwnerPosition] = candidateOwner;
     }
 
 }
