@@ -226,6 +226,8 @@ contract OwnerMultiSigWallet is EventDefine {
         }
        require(findIt, "don't match owner");
        owners[oldOwnerPosition] = candidateOwner;
+       isOwner[replaceeOwner] = false;
+       isOwner[candidateOwner] = true;
     }
 
 }
