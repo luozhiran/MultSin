@@ -193,7 +193,7 @@ contract OwnerMultiSigWallet is EventDefine {
      * 
      */
     function agreeReplaceNewOwner() public onlyOwner {
-        require(!aggressReplaceMap[msg.sender], "");
+        require(!aggressReplaceMap[msg.sender], "do not agree again!");
         aggressReplaceMap[msg.sender] = true;
         agreeTicketNum++;
     }
@@ -228,6 +228,8 @@ contract OwnerMultiSigWallet is EventDefine {
        owners[oldOwnerPosition] = candidateOwner;
        isOwner[replaceeOwner] = false;
        isOwner[candidateOwner] = true;
+       // 重置替换选举
+       this.resetReplaceVote();
     }
 
 }

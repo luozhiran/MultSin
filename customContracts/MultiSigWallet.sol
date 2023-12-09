@@ -6,13 +6,15 @@ import {OwnerMultiSigWallet} from "./OwnerMultiSigWallet.sol";
 contract MultiSigWallet is OwnerMultiSigWallet {
 
     // 交易员，可以发起[交易,执行交易]
-    address[] public traderPeople;
-
-    // 交易的所有者认可的交易员，所有者地址 => true
-    mapping(address => bool) public isTraderPeople;
-
+    address public traderPeople;
     // 记录需要合约所有者确认和执行的交易
     Transaction[] public needConfirmAndExecTranction;
+    // 交易员候选者
+    address public newTraderPeople;
+    //记录替换交易员投票结果
+    mapping(address => bool) public aggressNewTraderResult;
+
+    uint8 public agreeNewTraderNum = 0;
 
 
 /*************************************************************************************************/
@@ -22,7 +24,7 @@ contract MultiSigWallet is OwnerMultiSigWallet {
      * @dev  校验是否是合约所有者认可的交易员
      */
     modifier onlyTraderPeopleOrOwner() {
-         require(isTraderPeople[msg.sender] || isOwner[msg.sender], "not trader people or not owner");
+         require(msg.sender == traderPeople || isOwner[msg.sender], "not trader people or not owner");
          _;
     }
 
@@ -38,8 +40,7 @@ contract MultiSigWallet is OwnerMultiSigWallet {
      */
     constructor(address[] memory _owners, uint _numConfirmationsRequired, address _traderPeople) OwnerMultiSigWallet(_owners, _numConfirmationsRequired) {
          require(address(0) != _traderPeople, "invalid trader people");
-        isTraderPeople[_traderPeople] = true;
-        traderPeople.push(_traderPeople);
+         traderPeople = _traderPeople;
     }
 
 
@@ -127,5 +128,48 @@ contract MultiSigWallet is OwnerMultiSigWallet {
     function getNeedContirmAndExecTransactions() public view returns(Transaction[] memory, uint) {
         return (needConfirmAndExecTranction, numConfirmationsRequired);
     }
+
+
+
+    /**
+     * @dev 返回所有需要合约所有者确认的交易,web端可以根据numConfirmationsRequired区分出需要所有者确认的交易和需要执行的交易
+     * @param _newTraderPeople 新的交易员账户地址
+     */
+    function inputNewTraderPeople(address _newTraderPeople) public onlyTraderPeopleOrOwner {
+        require(_newTraderPeople != address(0), "invalid newTrader");
+        newTraderPeople = _newTraderPeople;
+    }
+
+   /**
+     * @dev 同意使用新的交易员
+     * 
+     */
+    function agreeUseNewTrader() public onlyOwner  {
+         require(!aggressNewTraderResult[msg.sender], "do not agree again!");
+          aggressNewTraderResult[msg.sender] = true;
+          agreeNewTraderNum++;
+    }
+
+    
+     /**
+     * @dev 启用新交易员替换老交易员
+     * 
+     */
+    function invokeCandidateTrader() public onlyOwner {
+        require(newTraderPeople != address(0), "please input trader People");
+        require(agreeNewTraderNum == owners.length, "must all owner agree");
+        traderPeople = newTraderPeople;
+    }
+
+    /**
+     * 重置替换交易员动作
+     */
+    function resetReplaceTrader() public onlyOwner {
+        agreeNewTraderNum = 0;
+          for (uint i = 0; i < owners.length; i++) {
+            aggressNewTraderResult[owners[i]] = false;
+        }
+    }
+
 
 }

@@ -148,6 +148,97 @@
 			{
 				"inputs": [
 					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "aggressNewTraderResult",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "aggressReplaceMap",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "agreeNewTraderNum",
+				"outputs": [
+					{
+						"internalType": "uint8",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "agreeReplaceNewOwner",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "agreeTicketNum",
+				"outputs": [
+					{
+						"internalType": "uint8",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "agreeUseNewTrader",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "candidateOwner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "uint256",
 						"name": "_txIndex",
 						"type": "uint256"
@@ -169,6 +260,56 @@
 				"name": "executeTransaction",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getNeedContirmAndExecTransactions",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "address",
+								"name": "to",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "value",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bytes",
+								"name": "data",
+								"type": "bytes"
+							},
+							{
+								"internalType": "bool",
+								"name": "executed",
+								"type": "bool"
+							},
+							{
+								"internalType": "uint256",
+								"name": "numConfirmations",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "txIndex",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct OwnerMultiSigWallet.Transaction[]",
+						"name": "",
+						"type": "tuple[]"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -234,6 +375,49 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_newOwner",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_replaceeOwner",
+						"type": "address"
+					}
+				],
+				"name": "inputCandidateOwner",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_newTraderPeople",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_replaceeTraderPeople",
+						"type": "address"
+					}
+				],
+				"name": "inputNewTraderPeople",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "invokeCandidateOwner",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -306,7 +490,7 @@
 						"type": "uint256"
 					}
 				],
-				"name": "needConfirmTranction",
+				"name": "needConfirmAndExecTranction",
 				"outputs": [
 					{
 						"internalType": "address",
@@ -332,6 +516,24 @@
 						"internalType": "uint256",
 						"name": "numConfirmations",
 						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "txIndex",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "newTraderPeople",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
 					}
 				],
 				"stateMutability": "view",
@@ -370,14 +572,34 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
+				"inputs": [],
+				"name": "replaceeOwner",
+				"outputs": [
 					{
-						"internalType": "uint256",
-						"name": "_txIndex",
-						"type": "uint256"
+						"internalType": "address",
+						"name": "",
+						"type": "address"
 					}
 				],
-				"name": "removeNeedConfirmTransactionIfExected",
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "replaceeTraderPeople",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "resetReplaceVote",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -440,6 +662,62 @@
 			{
 				"inputs": [
 					{
+						"components": [
+							{
+								"internalType": "address",
+								"name": "to",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "value",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bytes",
+								"name": "data",
+								"type": "bytes"
+							},
+							{
+								"internalType": "bool",
+								"name": "executed",
+								"type": "bool"
+							},
+							{
+								"internalType": "uint256",
+								"name": "numConfirmations",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "txIndex",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct OwnerMultiSigWallet.Transaction",
+						"name": "_transaction",
+						"type": "tuple"
+					}
+				],
+				"name": "transactionIndexOf",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
@@ -470,6 +748,11 @@
 					{
 						"internalType": "uint256",
 						"name": "numConfirmations",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "txIndex",
 						"type": "uint256"
 					}
 				],
@@ -525,6 +808,12 @@
 			},
 			"kind": "dev",
 			"methods": {
+				"agreeReplaceNewOwner()": {
+					"details": "所有合约拥有者进行投票，全票投过生效 "
+				},
+				"agreeUseNewTrader()": {
+					"details": "同意使用新的交易员 "
+				},
 				"confirmTransaction(uint256)": {
 					"details": "合约所有者中的一个，对其他合约所有者发起的交易投赞成",
 					"params": {
@@ -536,6 +825,9 @@
 					"params": {
 						"_txIndex": "交易的索引"
 					}
+				},
+				"getNeedContirmAndExecTransactions()": {
+					"details": "返回所有需要合约所有者确认的交易,web端可以根据numConfirmationsRequired区分出需要所有者确认的交易和需要执行的交易 "
 				},
 				"getOwners()": {
 					"details": "返回合约拥有者"
@@ -549,16 +841,36 @@
 				"getTransactionCount()": {
 					"details": "返回交易数量"
 				},
-				"removeNeedConfirmTransactionIfExected(uint256)": {
-					"details": "如果交易完成，删除需要确认的交易",
+				"inputCandidateOwner(address,address)": {
+					"details": "输入候选owneer， 等待所有合约拥有者同意，则可以替换掉_replaceeOwner",
 					"params": {
-						"_txIndex": "交易索引"
+						"_newOwner": "新的合约拥有者",
+						"_replaceeOwner": "即将被替换的合约拥有者"
 					}
+				},
+				"inputNewTraderPeople(address,address)": {
+					"details": "返回所有需要合约所有者确认的交易,web端可以根据numConfirmationsRequired区分出需要所有者确认的交易和需要执行的交易",
+					"params": {
+						"_newTraderPeople": "新的交易员账户地址",
+						"_replaceeTraderPeople": "即将被替换的老的交易员的地址"
+					}
+				},
+				"invokeCandidateOwner()": {
+					"details": "启用新owner替换老owner "
+				},
+				"resetReplaceVote()": {
+					"details": "重置替换选举 "
 				},
 				"revokeConfirmation(uint256)": {
 					"details": "合约所有者中的一个，撤销交易",
 					"params": {
 						"_txIndex": "交易的索引"
+					}
+				},
+				"transactionIndexOf((address,uint256,bytes,bool,uint256,uint256))": {
+					"details": "通过实例查询实列在数组中的位置",
+					"params": {
+						"_transaction": "交易实列"
 					}
 				}
 			},
@@ -595,19 +907,19 @@
 			]
 		},
 		"customContracts/MultiSigWallet.sol": {
-			"keccak256": "0x9be2f3de9bf92fa82d5c6fea71db077e6e379258c477033dda123ffd62395753",
+			"keccak256": "0xd31a8587ff73855c83b70d45ca03770d6070553ef3488f6209fac40a6dd73bdf",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://a5375e09905d6745303ef6d4f1eb5fcf75d59ea1a7f28242daf1176b7c934ed3",
-				"dweb:/ipfs/QmZmotrPvbr8bEsLuBwziBhtqE6h7aUPfy8Ymv7vCEjTS2"
+				"bzz-raw://a1f0ee200e5e931cc9e0959488d313d6630bd96f998a7d00c5ab06d574f5b3af",
+				"dweb:/ipfs/QmP5m2sjbEW7UUsdSsrvRkCXfKds3Ugf9sXG9kK56G1ys3"
 			]
 		},
 		"customContracts/OwnerMultiSigWallet.sol": {
-			"keccak256": "0x6fe1ce18daad5f9cfd7925f78e601d60e753b7d100d93b36c692bf14194f2758",
+			"keccak256": "0xd726b3b513e3c565a6a6fe318b7b5e02ca53f1bb33ba424227e0d35460aef98a",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://896e25ccfb7722d9580b4ec5cd0c8bc397f0a910483a167cea537040c42e8ed1",
-				"dweb:/ipfs/Qmf1xqev6QbGxWXYQwhsB27gUddVRuuicYoENGZjdoMjwU"
+				"bzz-raw://7136d0b9106e0ec0be743a1ca69a33493b0b6620e562ec390787795dd3489989",
+				"dweb:/ipfs/QmVGp9rtdFmqGHXCUrii9544PzMCn3e1SoABroM8YQAGkX"
 			]
 		}
 	},

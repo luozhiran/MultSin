@@ -570,11 +570,11 @@
 			]
 		},
 		"customContracts/OwnerMultiSigWallet.sol": {
-			"keccak256": "0x997f67ff64de5ead5bca4ef79ba609813f5d1608cb8eb857c3013776fe524005",
+			"keccak256": "0x6dd3744b207f2c564c86067b81bff0e4b563c221331e1923e8744d74da017e9f",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://a3f2268c155ae2d7a3100713260cf03d947a0ed393f6feff405807888f26a369",
-				"dweb:/ipfs/QmTC2yDSGukgwmkgDQzaP4GV6CFeq3y3Q8KzhHEPJN3Evx"
+				"bzz-raw://5e5099b2c94a8411fc57cd0d4f60e824763a1445e3329cadfcaab1cfd6b8dce0",
+				"dweb:/ipfs/QmcLipuRsbvppjdwFSFxVKp942ZmyXz1yf233UcuVzsTtd"
 			]
 		}
 	},
