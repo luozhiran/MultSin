@@ -179,7 +179,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"customContracts/EventDefine.sol": "EventDefine"
+			"contracts/EventDefine.sol": "EventDefine"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -193,7 +193,7 @@
 		"remappings": []
 	},
 	"sources": {
-		"customContracts/EventDefine.sol": {
+		"contracts/EventDefine.sol": {
 			"keccak256": "0x0074f3efb05d44b75f29c50020cf8994ce80e3f7efc521b422cfb55166b39d4b",
 			"license": "GPL-3.0",
 			"urls": [
