@@ -27,6 +27,24 @@ contract MultiSigWallet is OwnerMultiSigWallet {
          _;
     }
 
+
+    
+    /**
+     * 校验候选人不存在时正常执行
+     */
+    modifier newTraderPeopleNotExit(){
+      require(newTraderPeople == address(0), unicode"新的交易员已经存在");
+      _;
+    }
+
+     /**
+     * 校验候选人不存在时正常执行
+     */
+    modifier newTraderPeopleExit(){
+      require(newTraderPeople != address(0), unicode"请输入新的交易员地址");
+      _;
+    }
+
 /*************************************************************************************************/
 /*                                  函数                                                         */
 /*************************************************************************************************/
@@ -109,7 +127,7 @@ contract MultiSigWallet is OwnerMultiSigWallet {
      * @dev 返回所有需要合约所有者确认的交易,web端可以根据numConfirmationsRequired区分出需要所有者确认的交易和需要执行的交易
      * @param _newTraderPeople 新的交易员账户地址
      */
-    function inputNewTraderPeople(address _newTraderPeople) public onlyTraderPeopleOrOwner {
+    function inputNewTraderPeople(address _newTraderPeople) public onlyTraderPeopleOrOwner newTraderPeopleNotExit {
         require(_newTraderPeople != address(0), "invalid newTrader");
         newTraderPeople = _newTraderPeople;
     }
@@ -118,7 +136,7 @@ contract MultiSigWallet is OwnerMultiSigWallet {
      * @dev 同意使用新的交易员
      * 
      */
-    function agreeUseNewTrader() public onlyOwner  {
+    function agreeUseNewTrader() public onlyOwner newTraderPeopleExit  {
          require(!aggressNewTraderResult[msg.sender], "do not agree again!");
           aggressNewTraderResult[msg.sender] = true;
           agreeNewTraderNum++;
@@ -129,7 +147,7 @@ contract MultiSigWallet is OwnerMultiSigWallet {
      * @dev 启用新交易员替换老交易员
      * 
      */
-    function invokeCandidateTrader() public onlyOwner {
+    function invokeCandidateTrader() public onlyOwner newTraderPeopleExit {
         require(newTraderPeople != address(0), "please input trader People");
         require(agreeNewTraderNum == owners.length, "must all owner agree");
         traderPeople = newTraderPeople;

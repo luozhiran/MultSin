@@ -58,7 +58,7 @@ contract OwnerMultiSigWallet is EventDefine {
      * @dev 校验是否是合约所有者
      */
     modifier onlyOwner(){
-        require(isOwner[msg.sender], "not owner");
+        require(isOwner[msg.sender], unicode"执行人不是合约owner");
         _;
     }
 
@@ -66,7 +66,7 @@ contract OwnerMultiSigWallet is EventDefine {
      * @dev 校验交易是否存在，交易不存在抛出异常
      */
     modifier txExists(uint _txIndex){
-        require(_txIndex < transactions.length, "tx does not exist");
+        require(_txIndex < transactions.length, unicode"该交易不存在");
         _;
     }
 
@@ -74,7 +74,7 @@ contract OwnerMultiSigWallet is EventDefine {
      * @dev 校验交易是否已经执行,如果已经执行抛出异常
      */
     modifier notExecuted(uint _txIndex){
-        require(!transactions[_txIndex].executed, "tx already executed");
+        require(!transactions[_txIndex].executed, unicode"交易已经被执行过");
         _;
     }
 
@@ -82,8 +82,24 @@ contract OwnerMultiSigWallet is EventDefine {
      * @dev 校验交易是否已经确认，交易已经确认抛出异常
      */
     modifier notConfirmed(uint _txIndex){
-        require(!isConfirmed[_txIndex][msg.sender], "tx already confirmed");
+        require(!isConfirmed[_txIndex][msg.sender], unicode"该交易无法二次确认!");
         _;
+    }
+
+    /**
+     * 校验候选人不存在时正常执行
+     */
+    modifier candidateNotExit(){
+      require(candidateOwner == address(0), unicode"候选者已经存在");
+      _;
+    }
+
+     /**
+     * 校验候选人不存在时正常执行
+     */
+    modifier candidateExit(){
+      require(candidateOwner != address(0), unicode"请先输入候选人");
+      _;
     }
 
 
@@ -199,7 +215,7 @@ contract OwnerMultiSigWallet is EventDefine {
      * @param _newOwner 新的合约拥有者
      * @param _replaceeOwner 即将被替换的合约拥有者
      */
-    function inputCandidateOwner(address _newOwner, address _replaceeOwner) public onlyOwner {
+    function inputCandidateOwner(address _newOwner, address _replaceeOwner) public onlyOwner candidateNotExit  {
          require(_newOwner != address(0) || _replaceeOwner != address(0), "invalid newOwner or replaceeOwner");
          require(isOwner[msg.sender], "replaceeOwner is not ownner");
          candidateOwner = _newOwner;
@@ -210,7 +226,7 @@ contract OwnerMultiSigWallet is EventDefine {
      * @dev 所有合约拥有者进行投票，全票投过生效
      * 
      */
-    function agreeReplaceNewOwner() public onlyOwner {
+    function agreeReplaceNewOwner() public onlyOwner candidateExit {
         require(!aggressReplaceMap[msg.sender], "do not agree again!");
         aggressReplaceMap[msg.sender] = true;
         agreeTicketNum++;
@@ -225,13 +241,16 @@ contract OwnerMultiSigWallet is EventDefine {
         for (uint i = 0; i < owners.length; i++) {
             aggressReplaceMap[owners[i]] = false;
         }
+        // 清除候选者
+       delete candidateOwner;
+       delete replaceeOwner;
     }
 
     /**
      * @dev 启用新owner替换老owner
      * 
      */
-    function invokeCandidateOwner() public onlyOwner {
+    function invokeCandidateOwner() public onlyOwner candidateExit {
         require(candidateOwner != address(0) && replaceeOwner != address(0), "please input candidateOwner and replaceeOwner");
         uint oldOwnerPosition = 0;
         bool findIt = false;
@@ -251,7 +270,7 @@ contract OwnerMultiSigWallet is EventDefine {
     }
 
     /// @dev 校验合约所有者是否同意交易
-    function verifyOwnerIsAgreeTransaction(uint txIndex, address owner) public view returns (bool) {
+    function verifyOwnerIsAgreeTransaction(uint txIndex, address owner) public txExists(txIndex)  view returns (bool) {
         return isConfirmed[txIndex][owner];
     }
 
