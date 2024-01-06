@@ -128,7 +128,7 @@ contract MultiSigWallet is OwnerMultiSigWallet {
      * @param _newTraderPeople 新的交易员账户地址
      */
     function inputNewTraderPeople(address _newTraderPeople) public onlyTraderPeopleOrOwner newTraderPeopleNotExit {
-        require(_newTraderPeople != address(0), "invalid newTrader");
+        require(_newTraderPeople != address(0), "");
         newTraderPeople = _newTraderPeople;
     }
 
@@ -137,7 +137,7 @@ contract MultiSigWallet is OwnerMultiSigWallet {
      * 
      */
     function agreeUseNewTrader() public onlyOwner newTraderPeopleExit  {
-         require(!aggressNewTraderResult[msg.sender], "do not agree again!");
+         require(!aggressNewTraderResult[msg.sender], unicode"无法二次授权!");
           aggressNewTraderResult[msg.sender] = true;
           agreeNewTraderNum++;
     }
@@ -148,8 +148,7 @@ contract MultiSigWallet is OwnerMultiSigWallet {
      * 
      */
     function invokeCandidateTrader() public onlyOwner newTraderPeopleExit {
-        require(newTraderPeople != address(0), "please input trader People");
-        require(agreeNewTraderNum == owners.length, "must all owner agree");
+        require(agreeNewTraderNum == owners.length, unicode"等待其他授权者授权!");
         traderPeople = newTraderPeople;
     }
 
