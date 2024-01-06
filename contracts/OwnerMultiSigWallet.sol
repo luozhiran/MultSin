@@ -47,6 +47,9 @@ contract OwnerMultiSigWallet is EventDefine {
     mapping(address => bool) public aggressReplaceMap;
     uint8 public agreeTicketNum = 0;
 
+     // 记录需要合约所有者确认和执行的交易
+    Transaction[] public tempTransactionArray;
+
 /*************************************************************************************************/
 /*                                  函数修改器                                                    */
 /*************************************************************************************************/
@@ -113,7 +116,20 @@ contract OwnerMultiSigWallet is EventDefine {
         emit Deposit(msg.sender, msg.value, address(this).balance);
     }
 
-
+    function modifyTempTransactionState(uint _txIndex, bool confirm) public {
+        for (uint i=0;i<tempTransactionArray.length;i++) {
+            if (tempTransactionArray[i].txIndex == _txIndex) {
+                if (confirm) {
+                    tempTransactionArray[i].numConfirmations += 1;
+                } else {
+                     tempTransactionArray[i].numConfirmations -= 1;
+                }
+               
+                break ;
+            }
+        }
+    }
+   
     /**
      * @dev 合约所有者中的一个，对其他合约所有者发起的交易投赞成
      * @param _txIndex 交易的索引
@@ -122,6 +138,7 @@ contract OwnerMultiSigWallet is EventDefine {
         Transaction storage transaction = transactions[_txIndex];
         transaction.numConfirmations += 1;
         isConfirmed[_txIndex][msg.sender] = true;
+        modifyTempTransactionState(_txIndex, true);
         emit ConfirmTransaction(msg.sender, _txIndex);
     }
 
@@ -135,6 +152,7 @@ contract OwnerMultiSigWallet is EventDefine {
         require(isConfirmed[_txIndex][msg.sender], "tx not confirmed");
         transaction.numConfirmations -= 1;
         isConfirmed[_txIndex][msg.sender] = false;
+        modifyTempTransactionState(_txIndex, false);
         emit RevokeConfirmation(msg.sender, _txIndex);
     }
 
@@ -230,6 +248,11 @@ contract OwnerMultiSigWallet is EventDefine {
        isOwner[candidateOwner] = true;
        // 重置替换选举
        this.resetReplaceVote();
+    }
+
+    /// @dev 校验合约所有者是否同意交易
+    function verifyOwnerIsAgreeTransaction(uint txIndex, address owner) public view returns (bool) {
+        return isConfirmed[txIndex][owner];
     }
 
 }

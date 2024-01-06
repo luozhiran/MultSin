@@ -7,8 +7,7 @@ contract MultiSigWallet is OwnerMultiSigWallet {
 
     // 交易员，可以发起[交易,执行交易]
     address public traderPeople;
-    // 记录需要合约所有者确认和执行的交易
-    Transaction[] public needConfirmAndExecTranction;
+   
     // 交易员候选者
     address public newTraderPeople;
     //记录替换交易员投票结果
@@ -52,9 +51,8 @@ contract MultiSigWallet is OwnerMultiSigWallet {
      */
     function submitTransaction(address _to, uint _value, bytes memory _data) public onlyTraderPeopleOrOwner {
         uint txIndex = transactions.length;
-        Transaction memory ctx = Transaction({ to: _to, value: _value, data: _data, executed: false, numConfirmations: 0, txIndex: txIndex});
-        transactions.push(ctx);
-        needConfirmAndExecTranction.push(ctx);
+        transactions.push(Transaction({ to: _to, value: _value, data: _data, executed: false, numConfirmations: 0, txIndex: txIndex}));
+        tempTransactionArray.push(Transaction({ to: _to, value: _value, data: _data, executed: false, numConfirmations: 0, txIndex: txIndex}));
         emit SubmitTransaction(msg.sender, txIndex, _to, _value, _data);
     }
 
@@ -68,65 +66,41 @@ contract MultiSigWallet is OwnerMultiSigWallet {
         require(_txIndex < transactions.length, "index out of bound when get transaction");
         Transaction storage transaction = transactions[_txIndex];
         require(transaction.numConfirmations >= numConfirmationsRequired, "cannot execute tx");
-        transaction.executed = true;
         (bool success,) = transaction.to.call{value: transaction.value}(transaction.data);
         require(success,"tx failed");
-        (uint position, bool res) = transactionIndexOf(transaction);
-        removeNeedContirmTransactionIfExected(position, res);
+        transaction.executed = true;
+        removeTransaction(transaction);
         emit ExecuteTransaction(msg.sender, _txIndex);
     }
+
     
-    /**
-     * @dev 如果交易完成，删除需要确认的交易
-     * @param _txIndex 交易实力
-     */
-    function removeNeedContirmTransactionIfExected(uint _txIndex, bool exec) private {
-        require(exec, "not find need contirm transaction");
-        require(_txIndex < needConfirmAndExecTranction.length, "index out of bound");
-        for (uint i = _txIndex; i < needConfirmAndExecTranction.length - 1; i++) {
-             needConfirmAndExecTranction[i] = needConfirmAndExecTranction[i + 1];
-        }
-        needConfirmAndExecTranction.pop();       
-    }
-
-    /**
-     * @dev 如果交易完成，删除需要确认的交易。注意：快速删除会改变数组排序
-     * @param _txIndex 交易索引
-     */
-    function fastRemoveNeedContirmTransactionIfExected(uint _txIndex, bool exec) private {
-         require(exec, "not find need contirm transaction");
-        if (needConfirmAndExecTranction.length == 1 && _txIndex == 0) {
-            needConfirmAndExecTranction.pop();
-        }else {
-            require(_txIndex < needConfirmAndExecTranction.length, "index out of bound when remove transaction");
-            needConfirmAndExecTranction[_txIndex] = needConfirmAndExecTranction[transactions.length - 1];
-            needConfirmAndExecTranction.pop();
-        }  
-    }
-
-    /**
-     * @dev 通过实例查询实列在数组中的位置
-     * @param _transaction 交易实列
-     */
-    function transactionIndexOf(Transaction memory _transaction) public view returns(uint, bool) {
+    /// @dev 从数组中删除交易
+    function removeTransaction(Transaction memory _transaction) private {
         uint position = 0;
-        bool loopSuccess = false;
-        for (uint i = 0 ; i < needConfirmAndExecTranction.length; i++) {
-            if (_transaction.txIndex == needConfirmAndExecTranction[i].txIndex) {
+        bool suc = false;
+        uint transactionId = _transaction.txIndex;
+        for (uint i=0; i < tempTransactionArray.length;i++) {
+            if (transactionId == tempTransactionArray[i].txIndex) {
                 position = i;
-                loopSuccess = true;
-                break; 
+                suc = true;
+                break;
             }
         }
-        return (position, true);
+        if (suc) {
+             for (uint i = position; i < tempTransactionArray.length - 1; i++) {
+                tempTransactionArray[i] = tempTransactionArray[i + 1];
+             }   
+             tempTransactionArray.pop();  
+        }
+        
     }
-
+    
     /**
      * @dev 返回所有需要合约所有者确认的交易,web端可以根据numConfirmationsRequired区分出需要所有者确认的交易和需要执行的交易
      * 
      */
     function getNeedContirmAndExecTransactions() public view returns(Transaction[] memory, uint) {
-        return (needConfirmAndExecTranction, numConfirmationsRequired);
+        return (tempTransactionArray, numConfirmationsRequired);
     }
 
 
