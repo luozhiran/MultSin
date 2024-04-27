@@ -307,11 +307,5 @@ contract MultiSigWallet is MultiSignEvent,MulSigModify, SwapToken {
      function transactionNotExit(uint txIndex) external view override returns(bool) {
         return txIndex < transactions.length;
     }
-
-    // 取出合约中的所有资金
-    function withdraw() public onlyOwner {
-        require(address(this).balance > 0, "no money");
-        payable(msg.sender).transfer(address(this).balance);
-    }
  
 }
