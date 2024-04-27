@@ -14,8 +14,9 @@ import "./interfaces/IUniswapRouter.sol";
 import "./interfaces/IWETH.sol";
 import "./interfaces/IIERC20.sol";
 import "./modifys/MulSigModify.sol";
+import "./interfaces/IERC721Receiver.sol";
 
-abstract contract SwapToken is MulSigModify {
+abstract contract SwapToken is MulSigModify, IERC721Receiver {
     IUniswapRouter public constant uniswapRouter = IUniswapRouter(0x3bFA4769FB09eefC5a80d6E87c3B9C650f7Ae48E);
     INonfungiblePositionManager public nonfungiblePositionManager = INonfungiblePositionManager(0x1238536071E1c677A632429e3655c799b22cDA52);
     IIERC20 private constant uniToken = IIERC20(0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984);
@@ -24,15 +25,21 @@ abstract contract SwapToken is MulSigModify {
     int24 private constant MIN_TICK = -887272;
     int24 private constant MAX_TICK = -MIN_TICK;
     int24 private constant TICK_SPACING = 60;
-     // 存款
+    
+
+    /// @dev 实现' onERC721Received '，使该合约可以接收erc721代币的托管
+    function onERC721Received( address operator, address, uint256 tokenId,bytes calldata) external pure override returns (bytes4) {
+        // 获取职位信息
+        return IERC721Receiver.onERC721Received.selector;
+    }
 
     /// @notice 没有充足的代币，报错
     /// @dev 检查交换代币，输入代币数量
     modifier checkInputToken(address inputToken, uint256 amountIn) {
         require(address(0) != inputToken, "invalid token");
-        // require(amountIn > 0, "invalid token count");
-        // uint256 count = IIERC20(inputToken).balanceOf(address(this));
-        // require(count >= amountIn, "no enough tokens!");
+        require(amountIn > 0, "invalid token count");
+        uint256 count = IIERC20(inputToken).balanceOf(address(this));
+        require(count >= amountIn, "no enough tokens!");
         _;
     }
     
@@ -56,7 +63,6 @@ abstract contract SwapToken is MulSigModify {
             });
         bytes memory exactInputSingleBytes = abi.encodeWithSignature("exactInputSingle((address,address,uint24,address,uint256,uint256,uint160))", params);
         (bool success, bytes memory returnDatas) = address(uniswapRouter).call(exactInputSingleBytes);
-        require(success, unicode"dddd faile");
         (amountIn) = abi.decode(returnDatas, (uint256));
         return (success, amountIn);
     }
@@ -127,9 +133,8 @@ abstract contract SwapToken is MulSigModify {
     /// @param tokenId The id of the erc721 token
     /// @return amount0 The amount received back in token0
     /// @return amount1 The amount returned back in token1
-    function decreaseLiquidityInHalf(uint256 tokenId, uint128 halfLiquidity) external onlyOwner returns (uint256 amount0, uint256 amount1) {
-   
-
+    function decreaseLiquidityInHalf(uint256 tokenId,uint128 halfLiquidity) external onlyOwner returns (uint256 amount0, uint256 amount1) {
+    
         // amount0Min and amount1Min are price slippage checks
         // if the amount received after burning is not greater than these minimums, transaction will fail
         INonfungiblePositionManager.DecreaseLiquidityParams memory params = INonfungiblePositionManager.DecreaseLiquidityParams({
@@ -190,12 +195,16 @@ abstract contract SwapToken is MulSigModify {
 
     
     function unwrapEther() public {
-        require(address(this).balance > 0, "no money");
-        wethToken.deposit{ value: address(this).balance }();
+        wethToken.withdraw(wethToken.balanceOf(address(this)));
     }
 
-    function wrapEther() external {
-        wethToken.withdraw(wethToken.balanceOf(address(this)));
+    function wrapEther(uint256 count) external {
+        require(address(this).balance > 0, "no money");
+        if (count == 0) {
+            wethToken.deposit{ value: address(this).balance }();
+        } else {
+            wethToken.deposit{ value: count }();
+        }   
     }
 
     // 取出合约中的所有资金
