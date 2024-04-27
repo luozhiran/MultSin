@@ -138,12 +138,12 @@ contract Uniswap3 is IERC721Receiver {
     /********************************************使用合约账户swap**************************************************************************/
     function swapContractWETH_to_UNI(uint256 amountIn) external returns (bool, uint256) {
         // Approve the router to spend DAI.
-        TransferHelper.safeApprove(WETH9, address(uniswapRouter), amountIn);
+        TransferHelper.safeApprove(address(0), address(uniswapRouter), amountIn);
         // Naively set amountOutMinimum to 0. In production, use an oracle or other data source to choose a safer value for amountOutMinimum.
         // We also set the sqrtPriceLimitx96 to be 0 to ensure we swap our exact input amount.
         IV3SwapRouter.ExactInputSingleParams memory params = IV3SwapRouter
             .ExactInputSingleParams({
-                tokenIn: WETH9,
+                tokenIn: address(0),
                 tokenOut: UNI,
                 fee: 3000,
                 recipient: address(this),
@@ -154,7 +154,7 @@ contract Uniswap3 is IERC721Receiver {
         bytes memory exactInputSingleBytes = abi.encodeWithSignature("exactInputSingle((address,address,uint24,address,uint256,uint256,uint160))", params);
         (bool success, bytes memory returnDatas) = address(uniswapRouter).call(exactInputSingleBytes);
         (amountIn) = abi.decode(returnDatas, (uint256));
-        require(success, unicode"执行失败");
+        require(success, unicode"lzr swapContractWETH_to_UNI");
         return (success, amountIn);
     }
 
@@ -172,6 +172,7 @@ contract Uniswap3 is IERC721Receiver {
             });
         bytes memory exactInputSingleBytes = abi.encodeWithSignature("exactInputSingle((address,address,uint24,address,uint256,uint256,uint160))",params);
         (bool success, bytes memory returnDatas) = address(uniswapRouter).call(exactInputSingleBytes);
+         require(success, unicode"lzr swapCotractUNI_to_WETH");
         (amountIn) = abi.decode(returnDatas, (uint256));
         return (success, amountIn);
     }
@@ -190,6 +191,11 @@ contract Uniswap3 is IERC721Receiver {
     // 合约账户eth余额
     function EthBalance() external view returns (uint256) {
         return address(this).balance;
+    }
+    /*******************************************eth to weth**************************************************************************/
+    function deposit() public {
+        require(address(this).balance > 0, "no money");
+        wETH9Token.deposit{ value: address(this).balance }();
     }
 
     /********************************************取钱**************************************************************************/

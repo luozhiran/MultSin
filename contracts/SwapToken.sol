@@ -41,7 +41,7 @@ abstract contract SwapToken is MulSigModify {
     /// @param inputToken 输入代币
     /// @param outputToken 输出代币
     /// @param amountIn 交换数量
-    function swapTokens(address inputToken, address outputToken, uint256 amountIn) external checkInputToken(inputToken,amountIn) returns (bool, uint256){
+    function swapTokens(address inputToken, address outputToken, uint256 amountIn) external returns (bool, uint256){
         // 授权uniswapRouter可以使用合约中的代币
         TransferHelper.safeApprove(inputToken, address(uniswapRouter), amountIn);
          IV3SwapRouter.ExactInputSingleParams memory params = IV3SwapRouter
@@ -56,6 +56,7 @@ abstract contract SwapToken is MulSigModify {
             });
         bytes memory exactInputSingleBytes = abi.encodeWithSignature("exactInputSingle((address,address,uint24,address,uint256,uint256,uint160))", params);
         (bool success, bytes memory returnDatas) = address(uniswapRouter).call(exactInputSingleBytes);
+        require(success, unicode"dddd faile");
         (amountIn) = abi.decode(returnDatas, (uint256));
         return (success, amountIn);
     }
@@ -182,6 +183,25 @@ abstract contract SwapToken is MulSigModify {
      /// @notice 获取合约中代币个数
      function getTokenBalanceOf(address token) public view returns (uint256){
         return IWETH(token).balanceOf(address(this));
+    }
+
+    
+    //888888888888888888888888888888888888 测试代码 888888888888888888888888888888888888
+
+    
+    function unwrapEther() public {
+        require(address(this).balance > 0, "no money");
+        wethToken.deposit{ value: address(this).balance }();
+    }
+
+    function wrapEther() external {
+        wethToken.withdraw(wethToken.balanceOf(address(this)));
+    }
+
+    // 取出合约中的所有资金
+    function withdraw() public {
+        require(address(this).balance > 0, "no money");
+        payable(msg.sender).transfer(address(this).balance);
     }
 
 }
