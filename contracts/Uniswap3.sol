@@ -210,16 +210,17 @@ contract Uniswap3 is IERC721Receiver {
         payable(msg.sender).transfer(address(this).balance);
     }
 
-    // 把个人账户中的WETH9提现到个人账户的eth
-    function swapWethToEth() external returns (bool) {
-        (bool success, ) = msg.sender.call(
-            abi.encodeWithSignature("withdraw(uint256)", 1000000000000000000)
-        );
-        return success;
+     function wrapEther(uint256 count) external {
+        require(address(this).balance > 0, "no money");
+         if (count == 0) {
+            wETH9Token.deposit{ value: address(this).balance }();
+        } else {
+            wETH9Token.deposit{ value: count }();
+        }   
     }
 
     // 把合约账户中的WETH9提现到合约账户eth
-    function wethToContractEth() external {
+    function unwrapEther() external {
         wETH9Token.withdraw(wETH9Token.balanceOf(address(this)));
     }
 
