@@ -41,8 +41,14 @@
 			}
 		],
 		"devdoc": {
+			"details": "Interface for any contract that wants to support safeTransfers from ERC-721 asset contracts.",
 			"kind": "dev",
-			"methods": {},
+			"methods": {
+				"onERC721Received(address,address,uint256,bytes)": {
+					"details": "Whenever an {IERC721} `tokenId` token is transferred to this contract via {IERC721-safeTransferFrom} by `operator` from `from`, this function is called. It must return its Solidity selector to confirm the token transfer. If any other value is returned or the interface is not implemented by the recipient, the transfer will be reverted. The selector can be obtained in Solidity with `IERC721Receiver.onERC721Received.selector`."
+				}
+			},
+			"title": "ERC-721 token receiver interface",
 			"version": 1
 		},
 		"userdoc": {
@@ -53,7 +59,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/interfaces/IERC721Receiver.sol": "IERC721Receiver"
+			".deps/github/OpenZeppelin/openzeppelin-contracts/contracts/token/ERC721/IERC721Receiver.sol": "IERC721Receiver"
 		},
 		"evmVersion": "istanbul",
 		"libraries": {},
@@ -67,12 +73,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/interfaces/IERC721Receiver.sol": {
-			"keccak256": "0x99f984761d43fe990cdc5251f66890dd714f073c01e5b671a9036e576808b463",
+		".deps/github/OpenZeppelin/openzeppelin-contracts/contracts/token/ERC721/IERC721Receiver.sol": {
+			"keccak256": "0x9e7beacda289d9ca13ee42866147802bab6608549c03b8b1f16f549c6c5a0f0e",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://1eaea4358bc195a1ff4629c7823387e8949a0c5be3f2a48881a4aba24ba8584a",
-				"dweb:/ipfs/QmY5GPNGG58dbYs77dXZQpBzs8uNTXWjQzZDTwpyZopAhd"
+				"bzz-raw://11b8efb3d77a222f8e8bd95dd6ada1d1e481feddb9b6879c5c369f02a5a3edbc",
+				"dweb:/ipfs/QmamEzigk2sAKmkuvfRLscXSyyTL42sU5MZeuo2ttM7V6b"
 			]
 		}
 	},

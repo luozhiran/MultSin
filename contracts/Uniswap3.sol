@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.7.5;
+pragma solidity =0.7.6;
 pragma abicoder v2;
 
 import "https://github.com/Uniswap/uniswap-v3-periphery/blob/main/contracts/interfaces/ISwapRouter.sol";
@@ -11,21 +11,31 @@ import "https://github.com/Uniswap/v3-periphery/blob/main/contracts/libraries/Tr
 import "https://github.com/Uniswap/v3-periphery/blob/main/contracts/interfaces/external/IWETH9.sol";
 import "https://github.com/Uniswap/v3-periphery/blob/v1.0.0/contracts/interfaces/INonfungiblePositionManager.sol";
 import "https://github.com/Uniswap/v3-core/blob/main/contracts/libraries/TickMath.sol";
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC721/IERC721Receiver.sol";
 
 interface IUniswapRouter is ISwapRouter02 {
     function refundETH() external payable;
 }
 
+interface IERC721Receiver {
+    function onERC721Received(
+        address operator,
+        address from,
+        uint256 tokenId,
+        bytes calldata data
+    ) external returns (bytes4);
+}
+
 contract Uniswap3 is IERC721Receiver {
-    IUniswapRouter public constant uniswapRouter =
-        IUniswapRouter(0x3bFA4769FB09eefC5a80d6E87c3B9C650f7Ae48E);
-    INonfungiblePositionManager public nonfungiblePositionManager =
-        INonfungiblePositionManager(0x1238536071E1c677A632429e3655c799b22cDA52);
+    IUniswapRouter public constant uniswapRouter =IUniswapRouter(0x3bFA4769FB09eefC5a80d6E87c3B9C650f7Ae48E);
+    INonfungiblePositionManager public nonfungiblePositionManager = INonfungiblePositionManager(0x1238536071E1c677A632429e3655c799b22cDA52);
     address private constant UNI = 0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984;
     address private constant WETH9 = 0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14;
     IWETH9 private constant wETH9Token = IWETH9(WETH9);
     uint24 public constant poolFee = 3000;
+
+    int24 private constant MIN_TICK = -887272;
+    int24 private constant MAX_TICK = -MIN_TICK;
+    int24 private constant TICK_SPACING = 60;
 
     // 存款
     mapping(uint256 => Deposit) public deposits;
@@ -138,12 +148,12 @@ contract Uniswap3 is IERC721Receiver {
     /********************************************使用合约账户swap**************************************************************************/
     function swapContractWETH_to_UNI(uint256 amountIn) external returns (bool, uint256) {
         // Approve the router to spend DAI.
-        TransferHelper.safeApprove(address(0), address(uniswapRouter), amountIn);
+        TransferHelper.safeApprove(WETH9, address(uniswapRouter), amountIn);
         // Naively set amountOutMinimum to 0. In production, use an oracle or other data source to choose a safer value for amountOutMinimum.
         // We also set the sqrtPriceLimitx96 to be 0 to ensure we swap our exact input amount.
         IV3SwapRouter.ExactInputSingleParams memory params = IV3SwapRouter
             .ExactInputSingleParams({
-                tokenIn: address(0),
+                tokenIn: WETH9,
                 tokenOut: UNI,
                 fee: 3000,
                 recipient: address(this),
@@ -154,7 +164,7 @@ contract Uniswap3 is IERC721Receiver {
         bytes memory exactInputSingleBytes = abi.encodeWithSignature("exactInputSingle((address,address,uint24,address,uint256,uint256,uint160))", params);
         (bool success, bytes memory returnDatas) = address(uniswapRouter).call(exactInputSingleBytes);
         (amountIn) = abi.decode(returnDatas, (uint256));
-        require(success, unicode"lzr swapContractWETH_to_UNI");
+        require(success, unicode"执行失败");
         return (success, amountIn);
     }
 
@@ -172,7 +182,7 @@ contract Uniswap3 is IERC721Receiver {
             });
         bytes memory exactInputSingleBytes = abi.encodeWithSignature("exactInputSingle((address,address,uint24,address,uint256,uint256,uint160))",params);
         (bool success, bytes memory returnDatas) = address(uniswapRouter).call(exactInputSingleBytes);
-         require(success, unicode"lzr swapCotractUNI_to_WETH");
+        require(success, unicode"执行失败");
         (amountIn) = abi.decode(returnDatas, (uint256));
         return (success, amountIn);
     }
@@ -191,11 +201,6 @@ contract Uniswap3 is IERC721Receiver {
     // 合约账户eth余额
     function EthBalance() external view returns (uint256) {
         return address(this).balance;
-    }
-    /*******************************************eth to weth**************************************************************************/
-    function deposit() public {
-        require(address(this).balance > 0, "no money");
-        wETH9Token.deposit{ value: address(this).balance }();
     }
 
     /********************************************取钱**************************************************************************/
@@ -228,47 +233,43 @@ contract Uniswap3 is IERC721Receiver {
     function onERC721Received( address operator, address, uint256 tokenId,bytes calldata) external override returns (bytes4) {
         // 获取职位信息
         _createDeposit(operator, tokenId);
-        return this.onERC721Received.selector;
+        return IERC721Receiver.onERC721Received.selector;
     }
 
-    /// @notice 添加流动性
-    function addLiquidity(uint256 amount0ToMint, uint256 amount1ToMint) external returns ( uint256 tokenId,uint128 liquidity,uint256 amount0,uint256 amount1) {
-        // Approve the position manager
-        TransferHelper.safeApprove(WETH9, address(nonfungiblePositionManager), amount0ToMint );
-        TransferHelper.safeApprove( UNI, address(nonfungiblePositionManager), amount1ToMint );
-        INonfungiblePositionManager.MintParams memory params = INonfungiblePositionManager.MintParams({
-                token0: WETH9,
-                token1: UNI,
-                fee: 3000,
-                tickLower: TickMath.MIN_TICK,
-                tickUpper: TickMath.MAX_TICK,
-                amount0Desired: amount0ToMint,
-                amount1Desired: amount1ToMint,
-                amount0Min: 0,
-                amount1Min: 0,
-                recipient: address(this),
-                deadline: block.timestamp
-            });
-        // 使用合约中的代币添加流动性，需要使用call()方法,否者转调用者账户的钱
+
+     function mintNewPosition(uint256 amount0ToAdd, uint256 amount1ToAdd) external returns (uint256 tokenId, uint128 liquidity, uint256 amount0,uint256 amount1){
+        TransferHelper.safeApprove(WETH9, address(nonfungiblePositionManager), amount0ToAdd );
+        TransferHelper.safeApprove( UNI, address(nonfungiblePositionManager), amount1ToAdd );
+
+        INonfungiblePositionManager.MintParams memory params =
+        INonfungiblePositionManager.MintParams({
+            token0: UNI,
+            token1: WETH9,
+            fee: 3000,
+            tickLower: (MIN_TICK / TICK_SPACING) * TICK_SPACING,
+            tickUpper: (MAX_TICK / TICK_SPACING) * TICK_SPACING,
+            amount0Desired: amount0ToAdd,
+            amount1Desired: amount1ToAdd,
+            amount0Min: 0,
+            amount1Min: 0,
+            recipient: address(this),
+            deadline: block.timestamp
+        });
+
+        // (tokenId, liquidity, amount0, amount1) = nonfungiblePositionManager.mint(params);
         bytes memory minitParamsBytes = abi.encodeWithSignature("mint((address,address,uint24,int24,int24,uint256,uint256,uint256,uint256,address,uint256))", params);
         (bool success, bytes memory mintDataBytes) = address(nonfungiblePositionManager).call(minitParamsBytes);
         (tokenId, liquidity, amount0, amount1) = abi.decode(mintDataBytes, (uint256, uint128, uint256, uint256 ));
-        // (tokenId, liquidity, amount0, amount1) = nonfungiblePositionManager.mint(params);
-        require(success,"yyds:mint faile");
-        _createDeposit(address(this), tokenId);
-
-        // 添加流动性剩余的代币 退回合约代币账户
-        if (amount0 < amount0ToMint) {
+         _createDeposit(address(this), tokenId);
+        if (amount0 < amount0ToAdd) {
             TransferHelper.safeApprove( WETH9, address(nonfungiblePositionManager), 0 );
-            uint256 refund0 = amount0ToMint - amount0;
+            uint256 refund0 = amount0ToAdd - amount0;
             TransferHelper.safeTransfer(WETH9, address(this), refund0);
         }
-
-       // 添加流动性剩余的代币 退回合约代币账户
-        if (amount1 < amount1ToMint) {
-            TransferHelper.safeApprove( UNI, address(nonfungiblePositionManager), 0);
-            uint256 refund0 = amount1ToMint - amount1;
-            TransferHelper.safeTransfer(UNI, address(this), refund0);
+        if (amount1 < amount1ToAdd) {
+             TransferHelper.safeApprove( UNI, address(nonfungiblePositionManager), 0 );
+            uint256 refund1 = amount1ToAdd - amount0;
+            TransferHelper.safeTransfer(UNI, address(this), refund1);
         }
     }
 

@@ -28,7 +28,7 @@ abstract contract SwapToken is MulSigModify, IERC721Receiver {
     
 
     /// @dev 实现' onERC721Received '，使该合约可以接收erc721代币的托管
-    function onERC721Received( address operator, address, uint256 tokenId,bytes calldata) external pure override returns (bytes4) {
+    function onERC721Received( address operator, address, uint256 tokenId, bytes calldata) external pure override returns (bytes4) {
         // 获取职位信息
         return IERC721Receiver.onERC721Received.selector;
     }
@@ -73,14 +73,15 @@ abstract contract SwapToken is MulSigModify, IERC721Receiver {
     /// @param inputToken1Count 代币数量
     /// @param inputToken2 代币地址
     /// @param inputToken2Count 代币数量
-    function mintNewPosition(address inputToken1 , uint256 inputToken1Count,address inputToken2 , uint256 inputToken2Count, uint24 poolFee)
+    function mintNewPosition(address inputToken1 , uint256 inputToken1Count,address inputToken2 , uint256 inputToken2Count)
      external returns (uint256 tokenId, uint128 liquidity, uint256 amount0,uint256 amount1) {
         TransferHelper.safeApprove(inputToken1, address(nonfungiblePositionManager), inputToken1Count );
-        TransferHelper.safeApprove( inputToken2, address(nonfungiblePositionManager), inputToken2Count );
-        INonfungiblePositionManager.MintParams memory params = INonfungiblePositionManager.MintParams({
+        TransferHelper.safeApprove(inputToken2, address(nonfungiblePositionManager), inputToken2Count );
+        INonfungiblePositionManager.MintParams memory params =
+        INonfungiblePositionManager.MintParams({
             token0: inputToken1,
             token1: inputToken2,
-            fee: poolFee,
+            fee: 3000,
             tickLower: (MIN_TICK / TICK_SPACING) * TICK_SPACING,
             tickUpper: (MAX_TICK / TICK_SPACING) * TICK_SPACING,
             amount0Desired: inputToken1Count,
@@ -90,17 +91,16 @@ abstract contract SwapToken is MulSigModify, IERC721Receiver {
             recipient: address(this),
             deadline: block.timestamp
         });
+
+        // (tokenId, liquidity, amount0, amount1) = nonfungiblePositionManager.mint(params);
         bytes memory minitParamsBytes = abi.encodeWithSignature("mint((address,address,uint24,int24,int24,uint256,uint256,uint256,uint256,address,uint256))", params);
         (bool success, bytes memory mintDataBytes) = address(nonfungiblePositionManager).call(minitParamsBytes);
-        require(success, 'exec mintNewPosition faile');
         (tokenId, liquidity, amount0, amount1) = abi.decode(mintDataBytes, (uint256, uint128, uint256, uint256 ));
-        
-         if (amount0 < inputToken1Count) {
+        if (amount0 < inputToken1Count) {
             TransferHelper.safeApprove( inputToken1, address(nonfungiblePositionManager), 0 );
             uint256 refund0 = inputToken1Count - amount0;
             TransferHelper.safeTransfer(inputToken1, address(this), refund0);
         }
-
         if (amount1 < inputToken2Count) {
              TransferHelper.safeApprove( inputToken2, address(nonfungiblePositionManager), 0 );
             uint256 refund1 = inputToken2Count - amount0;
