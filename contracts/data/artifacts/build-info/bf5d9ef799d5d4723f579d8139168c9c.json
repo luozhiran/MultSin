@@ -1,0 +1,279 @@
+{
+	"id": "bf5d9ef799d5d4723f579d8139168c9c",
+	"_format": "hh-sol-build-info-1",
+	"solcVersion": "0.8.25",
+	"solcLongVersion": "0.8.25+commit.b61c2a91",
+	"input": {
+		"language": "Solidity",
+		"sources": {
+			"contracts/data_struct/CurrentInfo.sol": {
+				"content": "// SPDX-License-Identifier: MIT\r\npragma solidity >=0.8.2 <0.9.0;\r\n\r\n  struct CurrentInfo {\r\n        /// @dev 交易员，可以发起[交易,执行交易]\r\n        address traderPeople;\r\n        /// @dev 合约的审批阈值，>= approvalThresholdCount 才能发起交易\r\n        uint8 approvalThresholdCount;\r\n        /// @dev 每一个owner对交易审批结果集合 => (合约所有者=>是否赞成)\r\n        mapping(uint => mapping(address => bool)) eachOwnerApprovalResultMap;\r\n        /// @dev 记录需要合约所有者确认和执行的交易\r\n        uint[] activeTransactionArray;\r\n        /// @dev 记录需要合约所有者确认和执行的交易\r\n        uint activeTransactionCount;\r\n    }"
+			}
+		},
+		"settings": {
+			"optimizer": {
+				"enabled": true,
+				"runs": 2000
+			},
+			"outputSelection": {
+				"*": {
+					"": [
+						"ast"
+					],
+					"*": [
+						"abi",
+						"metadata",
+						"devdoc",
+						"userdoc",
+						"storageLayout",
+						"evm.legacyAssembly",
+						"evm.bytecode",
+						"evm.deployedBytecode",
+						"evm.methodIdentifiers",
+						"evm.gasEstimates",
+						"evm.assembly"
+					]
+				}
+			},
+			"remappings": []
+		}
+	},
+	"output": {
+		"sources": {
+			"contracts/data_struct/CurrentInfo.sol": {
+				"ast": {
+					"absolutePath": "contracts/data_struct/CurrentInfo.sol",
+					"exportedSymbols": {
+						"CurrentInfo": [
+							22
+						]
+					},
+					"id": 23,
+					"license": "MIT",
+					"nodeType": "SourceUnit",
+					"nodes": [
+						{
+							"id": 1,
+							"literals": [
+								"solidity",
+								">=",
+								"0.8",
+								".2",
+								"<",
+								"0.9",
+								".0"
+							],
+							"nodeType": "PragmaDirective",
+							"src": "33:31:0"
+						},
+						{
+							"canonicalName": "CurrentInfo",
+							"id": 22,
+							"members": [
+								{
+									"constant": false,
+									"id": 4,
+									"mutability": "mutable",
+									"name": "traderPeople",
+									"nameLocation": "172:12:0",
+									"nodeType": "VariableDeclaration",
+									"scope": 22,
+									"src": "164:20:0",
+									"stateVariable": false,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_address",
+										"typeString": "address"
+									},
+									"typeName": {
+										"id": 3,
+										"name": "address",
+										"nodeType": "ElementaryTypeName",
+										"src": "164:7:0",
+										"stateMutability": "nonpayable",
+										"typeDescriptions": {
+											"typeIdentifier": "t_address",
+											"typeString": "address"
+										}
+									},
+									"visibility": "internal"
+								},
+								{
+									"constant": false,
+									"id": 7,
+									"mutability": "mutable",
+									"name": "approvalThresholdCount",
+									"nameLocation": "288:22:0",
+									"nodeType": "VariableDeclaration",
+									"scope": 22,
+									"src": "282:28:0",
+									"stateVariable": false,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_uint8",
+										"typeString": "uint8"
+									},
+									"typeName": {
+										"id": 6,
+										"name": "uint8",
+										"nodeType": "ElementaryTypeName",
+										"src": "282:5:0",
+										"typeDescriptions": {
+											"typeIdentifier": "t_uint8",
+											"typeString": "uint8"
+										}
+									},
+									"visibility": "internal"
+								},
+								{
+									"constant": false,
+									"id": 14,
+									"mutability": "mutable",
+									"name": "eachOwnerApprovalResultMap",
+									"nameLocation": "458:26:0",
+									"nodeType": "VariableDeclaration",
+									"scope": 22,
+									"src": "416:68:0",
+									"stateVariable": false,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_mapping$_t_uint256_$_t_mapping$_t_address_$_t_bool_$_$",
+										"typeString": "mapping(uint256 => mapping(address => bool))"
+									},
+									"typeName": {
+										"id": 13,
+										"keyName": "",
+										"keyNameLocation": "-1:-1:-1",
+										"keyType": {
+											"id": 9,
+											"name": "uint",
+											"nodeType": "ElementaryTypeName",
+											"src": "424:4:0",
+											"typeDescriptions": {
+												"typeIdentifier": "t_uint256",
+												"typeString": "uint256"
+											}
+										},
+										"nodeType": "Mapping",
+										"src": "416:41:0",
+										"typeDescriptions": {
+											"typeIdentifier": "t_mapping$_t_uint256_$_t_mapping$_t_address_$_t_bool_$_$",
+											"typeString": "mapping(uint256 => mapping(address => bool))"
+										},
+										"valueName": "",
+										"valueNameLocation": "-1:-1:-1",
+										"valueType": {
+											"id": 12,
+											"keyName": "",
+											"keyNameLocation": "-1:-1:-1",
+											"keyType": {
+												"id": 10,
+												"name": "address",
+												"nodeType": "ElementaryTypeName",
+												"src": "440:7:0",
+												"typeDescriptions": {
+													"typeIdentifier": "t_address",
+													"typeString": "address"
+												}
+											},
+											"nodeType": "Mapping",
+											"src": "432:24:0",
+											"typeDescriptions": {
+												"typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
+												"typeString": "mapping(address => bool)"
+											},
+											"valueName": "",
+											"valueNameLocation": "-1:-1:-1",
+											"valueType": {
+												"id": 11,
+												"name": "bool",
+												"nodeType": "ElementaryTypeName",
+												"src": "451:4:0",
+												"typeDescriptions": {
+													"typeIdentifier": "t_bool",
+													"typeString": "bool"
+												}
+											}
+										}
+									},
+									"visibility": "internal"
+								},
+								{
+									"constant": false,
+									"id": 18,
+									"mutability": "mutable",
+									"name": "activeTransactionArray",
+									"nameLocation": "572:22:0",
+									"nodeType": "VariableDeclaration",
+									"scope": 22,
+									"src": "565:29:0",
+									"stateVariable": false,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+										"typeString": "uint256[]"
+									},
+									"typeName": {
+										"baseType": {
+											"id": 16,
+											"name": "uint",
+											"nodeType": "ElementaryTypeName",
+											"src": "565:4:0",
+											"typeDescriptions": {
+												"typeIdentifier": "t_uint256",
+												"typeString": "uint256"
+											}
+										},
+										"id": 17,
+										"nodeType": "ArrayTypeName",
+										"src": "565:6:0",
+										"typeDescriptions": {
+											"typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+											"typeString": "uint256[]"
+										}
+									},
+									"visibility": "internal"
+								},
+								{
+									"constant": false,
+									"id": 21,
+									"mutability": "mutable",
+									"name": "activeTransactionCount",
+									"nameLocation": "680:22:0",
+									"nodeType": "VariableDeclaration",
+									"scope": 22,
+									"src": "675:27:0",
+									"stateVariable": false,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_uint256",
+										"typeString": "uint256"
+									},
+									"typeName": {
+										"id": 20,
+										"name": "uint",
+										"nodeType": "ElementaryTypeName",
+										"src": "675:4:0",
+										"typeDescriptions": {
+											"typeIdentifier": "t_uint256",
+											"typeString": "uint256"
+										}
+									},
+									"visibility": "internal"
+								}
+							],
+							"name": "CurrentInfo",
+							"nameLocation": "77:11:0",
+							"nodeType": "StructDefinition",
+							"scope": 23,
+							"src": "70:640:0",
+							"visibility": "public"
+						}
+					],
+					"src": "33:677:0"
+				},
+				"id": 0
+			}
+		}
+	}
+}

@@ -1,0 +1,65 @@
+{
+	"compiler": {
+		"version": "0.8.25+commit.b61c2a91"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					}
+				],
+				"name": "isOwner",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/interfaces/IOwner.sol": "IOwner"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 2000
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/interfaces/IOwner.sol": {
+			"keccak256": "0xa36db8894111e3deb0ccd6aad28c41e33018502deb7f8df5bd67ee8a24b63fc8",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://a1b4aef7ba818fa22cd88cd4e41021d2f0d7754da19fc351cae19045180ada29",
+				"dweb:/ipfs/Qmbxh98zikofuNzcarr2LhyvetNyxwyNdwtMpuH7rkNED3"
+			]
+		}
+	},
+	"version": 1
+}

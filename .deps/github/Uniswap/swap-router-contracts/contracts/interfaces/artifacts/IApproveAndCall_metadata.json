@@ -1,0 +1,325 @@
+{
+	"compiler": {
+		"version": "0.8.25+commit.b61c2a91"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					}
+				],
+				"name": "approveMax",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					}
+				],
+				"name": "approveMaxMinusOne",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					}
+				],
+				"name": "approveZeroThenMax",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					}
+				],
+				"name": "approveZeroThenMaxMinusOne",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes",
+						"name": "data",
+						"type": "bytes"
+					}
+				],
+				"name": "callPositionManager",
+				"outputs": [
+					{
+						"internalType": "bytes",
+						"name": "result",
+						"type": "bytes"
+					}
+				],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "getApprovalType",
+				"outputs": [
+					{
+						"internalType": "enum IApproveAndCall.ApprovalType",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"components": [
+							{
+								"internalType": "address",
+								"name": "token0",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "token1",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "tokenId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "amount0Min",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "amount1Min",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct IApproveAndCall.IncreaseLiquidityParams",
+						"name": "params",
+						"type": "tuple"
+					}
+				],
+				"name": "increaseLiquidity",
+				"outputs": [
+					{
+						"internalType": "bytes",
+						"name": "result",
+						"type": "bytes"
+					}
+				],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"components": [
+							{
+								"internalType": "address",
+								"name": "token0",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "token1",
+								"type": "address"
+							},
+							{
+								"internalType": "uint24",
+								"name": "fee",
+								"type": "uint24"
+							},
+							{
+								"internalType": "int24",
+								"name": "tickLower",
+								"type": "int24"
+							},
+							{
+								"internalType": "int24",
+								"name": "tickUpper",
+								"type": "int24"
+							},
+							{
+								"internalType": "uint256",
+								"name": "amount0Min",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "amount1Min",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "recipient",
+								"type": "address"
+							}
+						],
+						"internalType": "struct IApproveAndCall.MintParams",
+						"name": "params",
+						"type": "tuple"
+					}
+				],
+				"name": "mint",
+				"outputs": [
+					{
+						"internalType": "bytes",
+						"name": "result",
+						"type": "bytes"
+					}
+				],
+				"stateMutability": "payable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {
+				"approveMax(address)": {
+					"params": {
+						"token": "The token to approve"
+					}
+				},
+				"approveMaxMinusOne(address)": {
+					"params": {
+						"token": "The token to approve"
+					}
+				},
+				"approveZeroThenMax(address)": {
+					"params": {
+						"token": "The token to approve"
+					}
+				},
+				"approveZeroThenMaxMinusOne(address)": {
+					"params": {
+						"token": "The token to approve"
+					}
+				},
+				"callPositionManager(bytes)": {
+					"params": {
+						"data": "Calldata to pass along to the position manager"
+					},
+					"returns": {
+						"result": "The result from the call"
+					}
+				},
+				"getApprovalType(address,uint256)": {
+					"details": "Lens to be called off-chain to determine which (if any) of the relevant approval functions should be called",
+					"params": {
+						"amount": "The amount to approve",
+						"token": "The token to approve"
+					},
+					"returns": {
+						"_0": "The required approval type"
+					}
+				},
+				"increaseLiquidity((address,address,uint256,uint256,uint256))": {
+					"params": {
+						"params": "Calldata to pass along to the position manager"
+					},
+					"returns": {
+						"result": "The result from the call"
+					}
+				},
+				"mint((address,address,uint24,int24,int24,uint256,uint256,address))": {
+					"params": {
+						"params": "Calldata to pass along to the position manager"
+					},
+					"returns": {
+						"result": "The result from the call"
+					}
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"approveMax(address)": {
+					"notice": "Approves a token for the maximum possible amount"
+				},
+				"approveMaxMinusOne(address)": {
+					"notice": "Approves a token for the maximum possible amount minus one"
+				},
+				"approveZeroThenMax(address)": {
+					"notice": "Approves a token for zero, then the maximum possible amount"
+				},
+				"approveZeroThenMaxMinusOne(address)": {
+					"notice": "Approves a token for zero, then the maximum possible amount minus one"
+				},
+				"callPositionManager(bytes)": {
+					"notice": "Calls the position manager with arbitrary calldata"
+				},
+				"increaseLiquidity((address,address,uint256,uint256,uint256))": {
+					"notice": "Calls the position manager's increaseLiquidity function"
+				},
+				"mint((address,address,uint24,int24,int24,uint256,uint256,address))": {
+					"notice": "Calls the position manager's mint function"
+				}
+			},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			".deps/github/Uniswap/swap-router-contracts/contracts/interfaces/IApproveAndCall.sol": "IApproveAndCall"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 2000
+		},
+		"remappings": []
+	},
+	"sources": {
+		".deps/github/Uniswap/swap-router-contracts/contracts/interfaces/IApproveAndCall.sol": {
+			"keccak256": "0x7d3ff6615d89295b21a6d86dbb94154136d84c62abe7194ad6dc42fa4f437547",
+			"license": "GPL-2.0-or-later",
+			"urls": [
+				"bzz-raw://e718f1a65880a2c365a51b682505e28dac5c55a904b388ed762d04945859f56f",
+				"dweb:/ipfs/QmdMg1vKjFC8QPiFqJTbToUw7GTN3T2pTZLMovCjp8jwZi"
+			]
+		}
+	},
+	"version": 1
+}

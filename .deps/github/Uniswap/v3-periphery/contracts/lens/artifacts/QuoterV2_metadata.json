@@ -1,0 +1,550 @@
+{
+	"compiler": {
+		"version": "0.7.6+commit.7338295f"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_factory",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_WETH9",
+						"type": "address"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [],
+				"name": "WETH9",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "factory",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes",
+						"name": "path",
+						"type": "bytes"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amountIn",
+						"type": "uint256"
+					}
+				],
+				"name": "quoteExactInput",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "amountOut",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint160[]",
+						"name": "sqrtPriceX96AfterList",
+						"type": "uint160[]"
+					},
+					{
+						"internalType": "uint32[]",
+						"name": "initializedTicksCrossedList",
+						"type": "uint32[]"
+					},
+					{
+						"internalType": "uint256",
+						"name": "gasEstimate",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"components": [
+							{
+								"internalType": "address",
+								"name": "tokenIn",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "tokenOut",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "amountIn",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint24",
+								"name": "fee",
+								"type": "uint24"
+							},
+							{
+								"internalType": "uint160",
+								"name": "sqrtPriceLimitX96",
+								"type": "uint160"
+							}
+						],
+						"internalType": "struct IQuoterV2.QuoteExactInputSingleParams",
+						"name": "params",
+						"type": "tuple"
+					}
+				],
+				"name": "quoteExactInputSingle",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "amountOut",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint160",
+						"name": "sqrtPriceX96After",
+						"type": "uint160"
+					},
+					{
+						"internalType": "uint32",
+						"name": "initializedTicksCrossed",
+						"type": "uint32"
+					},
+					{
+						"internalType": "uint256",
+						"name": "gasEstimate",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes",
+						"name": "path",
+						"type": "bytes"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amountOut",
+						"type": "uint256"
+					}
+				],
+				"name": "quoteExactOutput",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "amountIn",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint160[]",
+						"name": "sqrtPriceX96AfterList",
+						"type": "uint160[]"
+					},
+					{
+						"internalType": "uint32[]",
+						"name": "initializedTicksCrossedList",
+						"type": "uint32[]"
+					},
+					{
+						"internalType": "uint256",
+						"name": "gasEstimate",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"components": [
+							{
+								"internalType": "address",
+								"name": "tokenIn",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "tokenOut",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "amount",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint24",
+								"name": "fee",
+								"type": "uint24"
+							},
+							{
+								"internalType": "uint160",
+								"name": "sqrtPriceLimitX96",
+								"type": "uint160"
+							}
+						],
+						"internalType": "struct IQuoterV2.QuoteExactOutputSingleParams",
+						"name": "params",
+						"type": "tuple"
+					}
+				],
+				"name": "quoteExactOutputSingle",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "amountIn",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint160",
+						"name": "sqrtPriceX96After",
+						"type": "uint160"
+					},
+					{
+						"internalType": "uint32",
+						"name": "initializedTicksCrossed",
+						"type": "uint32"
+					},
+					{
+						"internalType": "uint256",
+						"name": "gasEstimate",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "int256",
+						"name": "amount0Delta",
+						"type": "int256"
+					},
+					{
+						"internalType": "int256",
+						"name": "amount1Delta",
+						"type": "int256"
+					},
+					{
+						"internalType": "bytes",
+						"name": "path",
+						"type": "bytes"
+					}
+				],
+				"name": "uniswapV3SwapCallback",
+				"outputs": [],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"details": "These functions are not gas efficient and should _not_ be called on chain. Instead, optimistically execute the swap and check the amounts in the callback.",
+			"kind": "dev",
+			"methods": {
+				"quoteExactInput(bytes,uint256)": {
+					"params": {
+						"amountIn": "The amount of the first token to swap",
+						"path": "The path of the swap, i.e. each token pair and the pool fee"
+					},
+					"returns": {
+						"amountOut": "The amount of the last token that would be received",
+						"gasEstimate": "The estimate of the gas that the swap consumes",
+						"initializedTicksCrossedList": "List of the initialized ticks that the swap crossed for each pool in the path",
+						"sqrtPriceX96AfterList": "List of the sqrt price after the swap for each pool in the path"
+					}
+				},
+				"quoteExactInputSingle((address,address,uint256,uint24,uint160))": {
+					"params": {
+						"params": "The params for the quote, encoded as `QuoteExactInputSingleParams` tokenIn The token being swapped in tokenOut The token being swapped out fee The fee of the token pool to consider for the pair amountIn The desired input amount sqrtPriceLimitX96 The price limit of the pool that cannot be exceeded by the swap"
+					},
+					"returns": {
+						"amountOut": "The amount of `tokenOut` that would be received",
+						"gasEstimate": "The estimate of the gas that the swap consumes",
+						"initializedTicksCrossed": "The number of initialized ticks that the swap crossed",
+						"sqrtPriceX96After": "The sqrt price of the pool after the swap"
+					}
+				},
+				"quoteExactOutput(bytes,uint256)": {
+					"params": {
+						"amountOut": "The amount of the last token to receive",
+						"path": "The path of the swap, i.e. each token pair and the pool fee. Path must be provided in reverse order"
+					},
+					"returns": {
+						"amountIn": "The amount of first token required to be paid",
+						"gasEstimate": "The estimate of the gas that the swap consumes",
+						"initializedTicksCrossedList": "List of the initialized ticks that the swap crossed for each pool in the path",
+						"sqrtPriceX96AfterList": "List of the sqrt price after the swap for each pool in the path"
+					}
+				},
+				"quoteExactOutputSingle((address,address,uint256,uint24,uint160))": {
+					"params": {
+						"params": "The params for the quote, encoded as `QuoteExactOutputSingleParams` tokenIn The token being swapped in tokenOut The token being swapped out fee The fee of the token pool to consider for the pair amountOut The desired output amount sqrtPriceLimitX96 The price limit of the pool that cannot be exceeded by the swap"
+					},
+					"returns": {
+						"amountIn": "The amount required as the input for the swap in order to receive `amountOut`",
+						"gasEstimate": "The estimate of the gas that the swap consumes",
+						"initializedTicksCrossed": "The number of initialized ticks that the swap crossed",
+						"sqrtPriceX96After": "The sqrt price of the pool after the swap"
+					}
+				},
+				"uniswapV3SwapCallback(int256,int256,bytes)": {
+					"details": "In the implementation you must pay the pool tokens owed for the swap. The caller of this method must be checked to be a UniswapV3Pool deployed by the canonical UniswapV3Factory. amount0Delta and amount1Delta can both be 0 if no tokens were swapped.",
+					"params": {
+						"amount0Delta": "The amount of token0 that was sent (negative) or must be received (positive) by the pool by the end of the swap. If positive, the callback must send that amount of token0 to the pool.",
+						"amount1Delta": "The amount of token1 that was sent (negative) or must be received (positive) by the pool by the end of the swap. If positive, the callback must send that amount of token1 to the pool.",
+						"data": "Any data passed through by the caller via the IUniswapV3PoolActions#swap call"
+					}
+				}
+			},
+			"stateVariables": {
+				"amountOutCached": {
+					"details": "Transient storage variable used to check a safety condition in exact output swaps."
+				}
+			},
+			"title": "Provides quotes for swaps",
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"quoteExactInput(bytes,uint256)": {
+					"notice": "Returns the amount out received for a given exact input swap without executing the swap"
+				},
+				"quoteExactInputSingle((address,address,uint256,uint24,uint160))": {
+					"notice": "Returns the amount out received for a given exact input but for a swap of a single pool"
+				},
+				"quoteExactOutput(bytes,uint256)": {
+					"notice": "Returns the amount in required for a given exact output swap without executing the swap"
+				},
+				"quoteExactOutputSingle((address,address,uint256,uint24,uint160))": {
+					"notice": "Returns the amount in required to receive the given exact output amount but for a swap of a single pool"
+				},
+				"uniswapV3SwapCallback(int256,int256,bytes)": {
+					"notice": "Called to `msg.sender` after executing a swap via IUniswapV3Pool#swap."
+				}
+			},
+			"notice": "Allows getting the expected amount out or amount in for a given swap without executing the swap",
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			".deps/github/Uniswap/v3-periphery/contracts/lens/QuoterV2.sol": "QuoterV2"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		".deps/github/Uniswap/v3-periphery/contracts/base/PeripheryImmutableState.sol": {
+			"keccak256": "0xd43c2355a7d5659b1fa1fb322647f760722d73a6a5e62ede53d426f3b406b795",
+			"license": "GPL-2.0-or-later",
+			"urls": [
+				"bzz-raw://657920576878ca936157383782a97b74166c303a3932c0d72eac3a2d057c3a96",
+				"dweb:/ipfs/Qma71Ska1ZbPBnYpeE5S2EAeEtwGfHEMHo3SnDwY1fVmm5"
+			]
+		},
+		".deps/github/Uniswap/v3-periphery/contracts/interfaces/IPeripheryImmutableState.sol": {
+			"keccak256": "0x7affcfeb5127c0925a71d6a65345e117c33537523aeca7bc98085ead8452519d",
+			"license": "GPL-2.0-or-later",
+			"urls": [
+				"bzz-raw://e16b291294210e71cb0f20cd0afe62ae2dc6878d627f5ccc19c4dc9cd80aec3f",
+				"dweb:/ipfs/QmQGitSyBr26nour81BZmpmDMyJpvZRqHQZvnCD1Acb127"
+			]
+		},
+		".deps/github/Uniswap/v3-periphery/contracts/interfaces/IQuoterV2.sol": {
+			"keccak256": "0x7e931f0cd34811851031c4f1318f59b4a4b427a2d2e2968b8e5ed87a9f7f89d6",
+			"license": "GPL-2.0-or-later",
+			"urls": [
+				"bzz-raw://63a8d7dcdd081004356b39e1b8e19ee56b02b3abd3e4165781bde1a100a35bed",
+				"dweb:/ipfs/QmdfpYkMxoaeEd646aSioLZcPodnCnpZy9Ny4j98uAba2J"
+			]
+		},
+		".deps/github/Uniswap/v3-periphery/contracts/lens/QuoterV2.sol": {
+			"keccak256": "0x4498d65850fa2954aabf326bc61fdd5801b25e6f1af4766d77b8610105a9d621",
+			"license": "GPL-2.0-or-later",
+			"urls": [
+				"bzz-raw://6642216c5a36919ef38eb6e7457a48ac7bb1b5caee87276f14608bc2f602edf0",
+				"dweb:/ipfs/QmSPLBzwzSgcv2sY4g9yRYKTdjnjSqrZy6MfS7yu7mVbo8"
+			]
+		},
+		".deps/github/Uniswap/v3-periphery/contracts/libraries/BytesLib.sol": {
+			"keccak256": "0x68629e5b1a30b6490c6ae721c28117f6f963745462b007da0769758eb67f10d4",
+			"license": "GPL-2.0-or-later",
+			"urls": [
+				"bzz-raw://370e31ceab1a7504f98dec122f65d9b8c6fc6420fd8cdd171b3dd57c4d5d21fc",
+				"dweb:/ipfs/QmcquKATbnopgs92RdM5bKewt7GdCpgGhVY4hxmv1KjnnH"
+			]
+		},
+		".deps/github/Uniswap/v3-periphery/contracts/libraries/CallbackValidation.sol": {
+			"keccak256": "0x490c80ca7f4a0ee0514041ddec0867e8a52b24febf1670991797af8fed9f3eec",
+			"license": "GPL-2.0-or-later",
+			"urls": [
+				"bzz-raw://f775ba8ad52041a351fbd7000801266d5a10be2f1a53d13c6c9862b2baa935bd",
+				"dweb:/ipfs/Qmcaxyr6VutZeaymeBNVcZrBVAHhyJ11sjhWpgj2GX6D5K"
+			]
+		},
+		".deps/github/Uniswap/v3-periphery/contracts/libraries/Path.sol": {
+			"keccak256": "0xb22c562b5175d50dbcc2224325666090d985f052abdcfe275c8dfc884e34de61",
+			"license": "GPL-2.0-or-later",
+			"urls": [
+				"bzz-raw://27aeff27314476ab3c77313ae1f0c5b2442b86315f5ce741cb2150a87c3cbad3",
+				"dweb:/ipfs/QmQNno2g1CJvjnH6ych4LuHr1UZDEZPACgYG4XvivxGrqV"
+			]
+		},
+		".deps/github/Uniswap/v3-periphery/contracts/libraries/PoolAddress.sol": {
+			"keccak256": "0x5edd84eb8ba7c12fd8cb6cffe52e1e9f3f6464514ee5f539c2283826209035a2",
+			"license": "GPL-2.0-or-later",
+			"urls": [
+				"bzz-raw://f375d0e6d5ea3674e1aa6f112b021e9a86721a6a2f3cb22d673378b30cf0e840",
+				"dweb:/ipfs/QmWJir2qnJyp963mU6U3jEEx9i3H3V5BgKawAfSnG1pC8w"
+			]
+		},
+		".deps/github/Uniswap/v3-periphery/contracts/libraries/PoolTicksCounter.sol": {
+			"keccak256": "0x45df43e95351dc152cecc0c4aaa9303f322434cd4c3981464879f55b75462220",
+			"license": "GPL-2.0-or-later",
+			"urls": [
+				"bzz-raw://855519ed3cd5f22b4b05f7f715414828bdca8d7e25ea71b4cde47a9694a8d754",
+				"dweb:/ipfs/QmWpngV7EQkBSMi1JYwpLWBZLGfMTESCRypnmmhPqwksRA"
+			]
+		},
+		"@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol": {
+			"keccak256": "0xfe6113d518466cd6652c85b111e01f33eb62157f49ae5ed7d5a3947a2044adb1",
+			"license": "GPL-2.0-or-later",
+			"urls": [
+				"bzz-raw://1c42b9e6f5902ac38dd43e25750939baa7e0c1425dc75afd717c4412731065d5",
+				"dweb:/ipfs/QmWaoacnzsucTvBME2o7YgZBZMhaHv7fkj83htHMVWJKWh"
+			]
+		},
+		"@uniswap/v3-core/contracts/interfaces/callback/IUniswapV3SwapCallback.sol": {
+			"keccak256": "0x3f485fb1a44e8fbeadefb5da07d66edab3cfe809f0ac4074b1e54e3eb3c4cf69",
+			"license": "GPL-2.0-or-later",
+			"urls": [
+				"bzz-raw://095ce0626b41318c772b3ebf19d548282607f6a8f3d6c41c13edfbd5370c8652",
+				"dweb:/ipfs/QmVDZfJJ89UUCE1hMyzqpkZAtQ8jUsBgZNE5AMRG7RzRFS"
+			]
+		},
+		"@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolActions.sol": {
+			"keccak256": "0x9453dd0e7442188667d01d9b65de3f1e14e9511ff3e303179a15f6fc267f7634",
+			"license": "GPL-2.0-or-later",
+			"urls": [
+				"bzz-raw://982f4328f956c3e60e67501e759eb292ac487f76460c774c50e9ae4fcc92aae5",
+				"dweb:/ipfs/QmRnzEDsaqtd9PJEVcgQi7p5aV5pMSvRUoGZJAdwFUJxgZ"
+			]
+		},
+		"@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolDerivedState.sol": {
+			"keccak256": "0xe603ac5b17ecdee73ba2b27efdf386c257a19c14206e87eee77e2017b742d9e5",
+			"license": "GPL-2.0-or-later",
+			"urls": [
+				"bzz-raw://8febc9bdb399a4d94bb89f5377732652e2400e4a8dee808201ade6848f9004e7",
+				"dweb:/ipfs/QmaKDqYYFU4d2W2iN77aDHptfbFmYZRrMYXHeGpJmM8C1c"
+			]
+		},
+		"@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolEvents.sol": {
+			"keccak256": "0x8071514d0fe5d17d6fbd31c191cdfb703031c24e0ece3621d88ab10e871375cd",
+			"license": "GPL-2.0-or-later",
+			"urls": [
+				"bzz-raw://d0b571930cc7488b1d546a7e9cea7c52d8b3c4e207da657ed0e0db7343b8cd03",
+				"dweb:/ipfs/QmaGK6vVwB95QSTR1XMYvrh7ivYAYZxi3fD7v6VMA4jZ39"
+			]
+		},
+		"@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolImmutables.sol": {
+			"keccak256": "0xf6e5d2cd1139c4c276bdbc8e1d2b256e456c866a91f1b868da265c6d2685c3f7",
+			"license": "GPL-2.0-or-later",
+			"urls": [
+				"bzz-raw://b99c8c9ae8e27ee6559e5866bea82cbc9ffc8247f8d15b7422a4deb287d4d047",
+				"dweb:/ipfs/QmfL8gaqt3ffAnm6nVj5ksuNpLygXuL3xq5VBqrkwC2JJ3"
+			]
+		},
+		"@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolOwnerActions.sol": {
+			"keccak256": "0x759b78a2918af9e99e246dc3af084f654e48ef32bb4e4cb8a966aa3dcaece235",
+			"license": "GPL-2.0-or-later",
+			"urls": [
+				"bzz-raw://64144fb96e1c7fdba87305acadb98a198d26a3d46c097cb3a666e567f6f29735",
+				"dweb:/ipfs/QmUnWVwN9FKB9uV5Pr8YfLpWZnYM2DENnRMaadZ492JS9u"
+			]
+		},
+		"@uniswap/v3-core/contracts/interfaces/pool/IUniswapV3PoolState.sol": {
+			"keccak256": "0x852dc1f5df7dcf7f11e7bb3eed79f0cea72ad4b25f6a9d2c35aafb48925fd49f",
+			"license": "GPL-2.0-or-later",
+			"urls": [
+				"bzz-raw://ed63907c38ff36b0e22bc9ffc53e791ea74f0d4f0e7c257fdfb5aaf8825b1f0f",
+				"dweb:/ipfs/QmSQrckghEjs6HVsA5GVgpNpZWvTXMY5eQLF7cN6deFeEg"
+			]
+		},
+		"@uniswap/v3-core/contracts/libraries/BitMath.sol": {
+			"keccak256": "0x82e425066110aac05ed8a9fc90f9ee85142b6f434769447e49d4438a8d9fcd82",
+			"license": "GPL-2.0-or-later",
+			"urls": [
+				"bzz-raw://77a97078bc992c18c59cb61e07fa4632c8a26b6babf00f3b16eabb5dcaa953b4",
+				"dweb:/ipfs/QmTj15ufLWk6AxedSVXBcLp5cYf2DCJAeDi94cVemCkm54"
+			]
+		},
+		"@uniswap/v3-core/contracts/libraries/SafeCast.sol": {
+			"keccak256": "0x4c12bf820c0b011f5490a209960ca34dd8af34660ef9e01de0438393d15e3fd8",
+			"license": "GPL-2.0-or-later",
+			"urls": [
+				"bzz-raw://fed11489e218e55d087d42b4f350a30e10cd2aedec8f432bd3cc712f648d5869",
+				"dweb:/ipfs/QmWfRnRxyXwHUDcTQPazxYYk5jxErGeQqdvnYtyg5nBPbU"
+			]
+		},
+		"@uniswap/v3-core/contracts/libraries/TickBitmap.sol": {
+			"keccak256": "0x2035bacd76333baa4ef2bbd6423561638e1b7e97cb19be5b4d61feeea3340364",
+			"license": "BUSL-1.1",
+			"urls": [
+				"bzz-raw://55da2e8d44c094b9aa1a40577f9ff32605516ae45ad54e799ec9d570d007a206",
+				"dweb:/ipfs/QmakgjThKgfBTaj6Vvf54oKkxeHqgxKFmyiVbcjstsGDBF"
+			]
+		},
+		"@uniswap/v3-core/contracts/libraries/TickMath.sol": {
+			"keccak256": "0xda8c2c0b12d2976acfd364453ba5f5bf0117ba3c91175ee9e1067d3fb26944d9",
+			"license": "GPL-2.0-or-later",
+			"urls": [
+				"bzz-raw://3f3d2d7c2723c91830c74d96292f28fc1cfe28d388cdb9c1a5ebadb4c2b96f81",
+				"dweb:/ipfs/QmYU4wk8MEm33wVWR38LoncvR7b8PP1mLuGBKX3dUpYJVE"
+			]
+		}
+	},
+	"version": 1
+}

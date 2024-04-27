@@ -1,0 +1,782 @@
+{
+	"deploy": {
+		"VM:-": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"main:1": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"ropsten:3": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"rinkeby:4": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"kovan:42": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"goerli:5": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"Custom": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		}
+	},
+	"data": {
+		"bytecode": {
+			"generatedSources": [],
+			"linkReferences": {},
+			"object": "",
+			"opcodes": "",
+			"sourceMap": ""
+		},
+		"deployedBytecode": {
+			"generatedSources": [],
+			"immutableReferences": {},
+			"linkReferences": {},
+			"object": "",
+			"opcodes": "",
+			"sourceMap": ""
+		},
+		"gasEstimates": null,
+		"methodIdentifiers": {
+			"approveMax(address)": "571ac8b0",
+			"approveMaxMinusOne(address)": "cab372ce",
+			"approveZeroThenMax(address)": "639d71a9",
+			"approveZeroThenMaxMinusOne(address)": "ab3fdd50",
+			"callPositionManager(bytes)": "b3a2af13",
+			"exactInput((bytes,address,uint256,uint256))": "b858183f",
+			"exactInputSingle((address,address,uint24,address,uint256,uint256,uint160))": "04e45aaf",
+			"exactOutput((bytes,address,uint256,uint256))": "09b81346",
+			"exactOutputSingle((address,address,uint24,address,uint256,uint256,uint160))": "5023b4df",
+			"getApprovalType(address,uint256)": "dee00f35",
+			"increaseLiquidity((address,address,uint256,uint256,uint256))": "f100b205",
+			"mint((address,address,uint24,int24,int24,uint256,uint256,address))": "11ed56c9",
+			"multicall(bytes32,bytes[])": "1f0464d1",
+			"multicall(bytes[])": "ac9650d8",
+			"multicall(uint256,bytes[])": "5ae401dc",
+			"selfPermit(address,uint256,uint256,uint8,bytes32,bytes32)": "f3995c67",
+			"selfPermitAllowed(address,uint256,uint256,uint8,bytes32,bytes32)": "4659a494",
+			"selfPermitAllowedIfNecessary(address,uint256,uint256,uint8,bytes32,bytes32)": "a4a78f0c",
+			"selfPermitIfNecessary(address,uint256,uint256,uint8,bytes32,bytes32)": "c2e3140a",
+			"swapExactTokensForTokens(uint256,uint256,address[],address)": "472b43f3",
+			"swapTokensForExactTokens(uint256,uint256,address[],address)": "42712a67",
+			"uniswapV3SwapCallback(int256,int256,bytes)": "fa461e33"
+		}
+	},
+	"abi": [
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "token",
+					"type": "address"
+				}
+			],
+			"name": "approveMax",
+			"outputs": [],
+			"stateMutability": "payable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "token",
+					"type": "address"
+				}
+			],
+			"name": "approveMaxMinusOne",
+			"outputs": [],
+			"stateMutability": "payable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "token",
+					"type": "address"
+				}
+			],
+			"name": "approveZeroThenMax",
+			"outputs": [],
+			"stateMutability": "payable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "token",
+					"type": "address"
+				}
+			],
+			"name": "approveZeroThenMaxMinusOne",
+			"outputs": [],
+			"stateMutability": "payable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "bytes",
+					"name": "data",
+					"type": "bytes"
+				}
+			],
+			"name": "callPositionManager",
+			"outputs": [
+				{
+					"internalType": "bytes",
+					"name": "result",
+					"type": "bytes"
+				}
+			],
+			"stateMutability": "payable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"components": [
+						{
+							"internalType": "bytes",
+							"name": "path",
+							"type": "bytes"
+						},
+						{
+							"internalType": "address",
+							"name": "recipient",
+							"type": "address"
+						},
+						{
+							"internalType": "uint256",
+							"name": "amountIn",
+							"type": "uint256"
+						},
+						{
+							"internalType": "uint256",
+							"name": "amountOutMinimum",
+							"type": "uint256"
+						}
+					],
+					"internalType": "struct IV3SwapRouter.ExactInputParams",
+					"name": "params",
+					"type": "tuple"
+				}
+			],
+			"name": "exactInput",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "amountOut",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "payable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"components": [
+						{
+							"internalType": "address",
+							"name": "tokenIn",
+							"type": "address"
+						},
+						{
+							"internalType": "address",
+							"name": "tokenOut",
+							"type": "address"
+						},
+						{
+							"internalType": "uint24",
+							"name": "fee",
+							"type": "uint24"
+						},
+						{
+							"internalType": "address",
+							"name": "recipient",
+							"type": "address"
+						},
+						{
+							"internalType": "uint256",
+							"name": "amountIn",
+							"type": "uint256"
+						},
+						{
+							"internalType": "uint256",
+							"name": "amountOutMinimum",
+							"type": "uint256"
+						},
+						{
+							"internalType": "uint160",
+							"name": "sqrtPriceLimitX96",
+							"type": "uint160"
+						}
+					],
+					"internalType": "struct IV3SwapRouter.ExactInputSingleParams",
+					"name": "params",
+					"type": "tuple"
+				}
+			],
+			"name": "exactInputSingle",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "amountOut",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "payable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"components": [
+						{
+							"internalType": "bytes",
+							"name": "path",
+							"type": "bytes"
+						},
+						{
+							"internalType": "address",
+							"name": "recipient",
+							"type": "address"
+						},
+						{
+							"internalType": "uint256",
+							"name": "amountOut",
+							"type": "uint256"
+						},
+						{
+							"internalType": "uint256",
+							"name": "amountInMaximum",
+							"type": "uint256"
+						}
+					],
+					"internalType": "struct IV3SwapRouter.ExactOutputParams",
+					"name": "params",
+					"type": "tuple"
+				}
+			],
+			"name": "exactOutput",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "amountIn",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "payable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"components": [
+						{
+							"internalType": "address",
+							"name": "tokenIn",
+							"type": "address"
+						},
+						{
+							"internalType": "address",
+							"name": "tokenOut",
+							"type": "address"
+						},
+						{
+							"internalType": "uint24",
+							"name": "fee",
+							"type": "uint24"
+						},
+						{
+							"internalType": "address",
+							"name": "recipient",
+							"type": "address"
+						},
+						{
+							"internalType": "uint256",
+							"name": "amountOut",
+							"type": "uint256"
+						},
+						{
+							"internalType": "uint256",
+							"name": "amountInMaximum",
+							"type": "uint256"
+						},
+						{
+							"internalType": "uint160",
+							"name": "sqrtPriceLimitX96",
+							"type": "uint160"
+						}
+					],
+					"internalType": "struct IV3SwapRouter.ExactOutputSingleParams",
+					"name": "params",
+					"type": "tuple"
+				}
+			],
+			"name": "exactOutputSingle",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "amountIn",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "payable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "token",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "amount",
+					"type": "uint256"
+				}
+			],
+			"name": "getApprovalType",
+			"outputs": [
+				{
+					"internalType": "enum IApproveAndCall.ApprovalType",
+					"name": "",
+					"type": "uint8"
+				}
+			],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"components": [
+						{
+							"internalType": "address",
+							"name": "token0",
+							"type": "address"
+						},
+						{
+							"internalType": "address",
+							"name": "token1",
+							"type": "address"
+						},
+						{
+							"internalType": "uint256",
+							"name": "tokenId",
+							"type": "uint256"
+						},
+						{
+							"internalType": "uint256",
+							"name": "amount0Min",
+							"type": "uint256"
+						},
+						{
+							"internalType": "uint256",
+							"name": "amount1Min",
+							"type": "uint256"
+						}
+					],
+					"internalType": "struct IApproveAndCall.IncreaseLiquidityParams",
+					"name": "params",
+					"type": "tuple"
+				}
+			],
+			"name": "increaseLiquidity",
+			"outputs": [
+				{
+					"internalType": "bytes",
+					"name": "result",
+					"type": "bytes"
+				}
+			],
+			"stateMutability": "payable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"components": [
+						{
+							"internalType": "address",
+							"name": "token0",
+							"type": "address"
+						},
+						{
+							"internalType": "address",
+							"name": "token1",
+							"type": "address"
+						},
+						{
+							"internalType": "uint24",
+							"name": "fee",
+							"type": "uint24"
+						},
+						{
+							"internalType": "int24",
+							"name": "tickLower",
+							"type": "int24"
+						},
+						{
+							"internalType": "int24",
+							"name": "tickUpper",
+							"type": "int24"
+						},
+						{
+							"internalType": "uint256",
+							"name": "amount0Min",
+							"type": "uint256"
+						},
+						{
+							"internalType": "uint256",
+							"name": "amount1Min",
+							"type": "uint256"
+						},
+						{
+							"internalType": "address",
+							"name": "recipient",
+							"type": "address"
+						}
+					],
+					"internalType": "struct IApproveAndCall.MintParams",
+					"name": "params",
+					"type": "tuple"
+				}
+			],
+			"name": "mint",
+			"outputs": [
+				{
+					"internalType": "bytes",
+					"name": "result",
+					"type": "bytes"
+				}
+			],
+			"stateMutability": "payable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "bytes32",
+					"name": "previousBlockhash",
+					"type": "bytes32"
+				},
+				{
+					"internalType": "bytes[]",
+					"name": "data",
+					"type": "bytes[]"
+				}
+			],
+			"name": "multicall",
+			"outputs": [
+				{
+					"internalType": "bytes[]",
+					"name": "results",
+					"type": "bytes[]"
+				}
+			],
+			"stateMutability": "payable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "deadline",
+					"type": "uint256"
+				},
+				{
+					"internalType": "bytes[]",
+					"name": "data",
+					"type": "bytes[]"
+				}
+			],
+			"name": "multicall",
+			"outputs": [
+				{
+					"internalType": "bytes[]",
+					"name": "results",
+					"type": "bytes[]"
+				}
+			],
+			"stateMutability": "payable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "bytes[]",
+					"name": "data",
+					"type": "bytes[]"
+				}
+			],
+			"name": "multicall",
+			"outputs": [
+				{
+					"internalType": "bytes[]",
+					"name": "results",
+					"type": "bytes[]"
+				}
+			],
+			"stateMutability": "payable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "token",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "value",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256",
+					"name": "deadline",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint8",
+					"name": "v",
+					"type": "uint8"
+				},
+				{
+					"internalType": "bytes32",
+					"name": "r",
+					"type": "bytes32"
+				},
+				{
+					"internalType": "bytes32",
+					"name": "s",
+					"type": "bytes32"
+				}
+			],
+			"name": "selfPermit",
+			"outputs": [],
+			"stateMutability": "payable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "token",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "nonce",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256",
+					"name": "expiry",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint8",
+					"name": "v",
+					"type": "uint8"
+				},
+				{
+					"internalType": "bytes32",
+					"name": "r",
+					"type": "bytes32"
+				},
+				{
+					"internalType": "bytes32",
+					"name": "s",
+					"type": "bytes32"
+				}
+			],
+			"name": "selfPermitAllowed",
+			"outputs": [],
+			"stateMutability": "payable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "token",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "nonce",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256",
+					"name": "expiry",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint8",
+					"name": "v",
+					"type": "uint8"
+				},
+				{
+					"internalType": "bytes32",
+					"name": "r",
+					"type": "bytes32"
+				},
+				{
+					"internalType": "bytes32",
+					"name": "s",
+					"type": "bytes32"
+				}
+			],
+			"name": "selfPermitAllowedIfNecessary",
+			"outputs": [],
+			"stateMutability": "payable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "token",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "value",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256",
+					"name": "deadline",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint8",
+					"name": "v",
+					"type": "uint8"
+				},
+				{
+					"internalType": "bytes32",
+					"name": "r",
+					"type": "bytes32"
+				},
+				{
+					"internalType": "bytes32",
+					"name": "s",
+					"type": "bytes32"
+				}
+			],
+			"name": "selfPermitIfNecessary",
+			"outputs": [],
+			"stateMutability": "payable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "amountIn",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256",
+					"name": "amountOutMin",
+					"type": "uint256"
+				},
+				{
+					"internalType": "address[]",
+					"name": "path",
+					"type": "address[]"
+				},
+				{
+					"internalType": "address",
+					"name": "to",
+					"type": "address"
+				}
+			],
+			"name": "swapExactTokensForTokens",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "amountOut",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "payable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "amountOut",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256",
+					"name": "amountInMax",
+					"type": "uint256"
+				},
+				{
+					"internalType": "address[]",
+					"name": "path",
+					"type": "address[]"
+				},
+				{
+					"internalType": "address",
+					"name": "to",
+					"type": "address"
+				}
+			],
+			"name": "swapTokensForExactTokens",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "amountIn",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "payable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "int256",
+					"name": "amount0Delta",
+					"type": "int256"
+				},
+				{
+					"internalType": "int256",
+					"name": "amount1Delta",
+					"type": "int256"
+				},
+				{
+					"internalType": "bytes",
+					"name": "data",
+					"type": "bytes"
+				}
+			],
+			"name": "uniswapV3SwapCallback",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		}
+	]
+}
