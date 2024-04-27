@@ -234,7 +234,7 @@ contract Uniswap3 is IERC721Receiver {
     function onERC721Received( address operator, address, uint256 tokenId,bytes calldata) external override returns (bytes4) {
         // 获取职位信息
         _createDeposit(operator, tokenId);
-        return IERC721Receiver.onERC721Received.selector;
+        return this.onERC721Received.selector;
     }
 
 
