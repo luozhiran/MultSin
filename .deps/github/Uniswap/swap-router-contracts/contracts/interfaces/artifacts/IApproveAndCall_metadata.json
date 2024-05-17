@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.25+commit.b61c2a91"
+		"version": "0.7.6+commit.7338295f"
 	},
 	"language": "Solidity",
 	"output": {
@@ -300,24 +300,24 @@
 		"compilationTarget": {
 			".deps/github/Uniswap/swap-router-contracts/contracts/interfaces/IApproveAndCall.sol": "IApproveAndCall"
 		},
-		"evmVersion": "cancun",
+		"evmVersion": "istanbul",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": true,
-			"runs": 2000
+			"enabled": false,
+			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
 		".deps/github/Uniswap/swap-router-contracts/contracts/interfaces/IApproveAndCall.sol": {
-			"keccak256": "0x7d3ff6615d89295b21a6d86dbb94154136d84c62abe7194ad6dc42fa4f437547",
+			"keccak256": "0xf4ecfa3404dab6cba0a4543d82173fd86c4a74dc7ba680f4eceebd1b7c789904",
 			"license": "GPL-2.0-or-later",
 			"urls": [
-				"bzz-raw://e718f1a65880a2c365a51b682505e28dac5c55a904b388ed762d04945859f56f",
-				"dweb:/ipfs/QmdMg1vKjFC8QPiFqJTbToUw7GTN3T2pTZLMovCjp8jwZi"
+				"bzz-raw://74a39f2e860453ace7a5045731420f1acf6b98a96dadc75d913a19eff7ffca86",
+				"dweb:/ipfs/QmcCGp4L4GyQj6XEmigWDKrcJHo1jML2d5ViSUUEDCTrwS"
 			]
 		}
 	},

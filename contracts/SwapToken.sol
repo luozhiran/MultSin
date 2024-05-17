@@ -106,6 +106,8 @@ abstract contract SwapToken is MulSigModify, IERC721Receiver {
             uint256 refund1 = inputToken2Count - amount0;
             TransferHelper.safeTransfer(inputToken2, address(this), refund1);
         }
+
+        return (tokenId, liquidity,amount0,amount1);
      }
 
 
@@ -124,7 +126,7 @@ abstract contract SwapToken is MulSigModify, IERC721Receiver {
 
         bytes memory paramsBytes = abi.encodeWithSignature("collect((uint256 ,address,uint128 ,uint128))", params);
         (bool success, bytes memory returnDatas) = address(nonfungiblePositionManager).call(paramsBytes);
-        require(success, 'exec collectAllFees faile');
+        // require(success, 'exec collectAllFees faile');
         (amount0, amount1) = abi.decode(returnDatas, (uint256, uint256 ));
         // (amount0, amount1) = nonfungiblePositionManager.collect(params);
     }
@@ -147,7 +149,7 @@ abstract contract SwapToken is MulSigModify, IERC721Receiver {
 
         bytes memory paramsBytes = abi.encodeWithSignature("decreaseLiquidity((uint256, uint128, uint256, uint256, uint256))", params);
         (bool success, bytes memory returnDatas) = address(nonfungiblePositionManager).call(paramsBytes);
-        require(success, 'exec decreaseLiquidityInHalf faile');
+        // require(success, 'exec decreaseLiquidityInHalf faile');
         (amount0, amount1) = abi.decode(returnDatas, (uint256, uint256 ));
         // (amount0, amount1) = nonfungiblePositionManager.decreaseLiquidity(params);
         //send liquidity back to owner
@@ -158,7 +160,11 @@ abstract contract SwapToken is MulSigModify, IERC721Receiver {
     /// @param tokenId The id of the erc721 token
     /// @param amount0 The amount to add of token0
     /// @param amount1 The amount to add of token1
-    function increaseLiquidityCurrentRange(uint256 tokenId, uint256 amountAdd0, uint256 amountAdd1) external onlyOwner returns ( uint128 liquidity, uint256 amount0, uint256 amount1){
+    function increaseLiquidityCurrentRange(uint256 tokenId,uint256 amountAdd0,uint256 amountAdd1) external onlyOwner returns ( uint128 liquidity, uint256 amount0, uint256 amount1){
+        // TransferHelper.safeApprove(inputToken1, address(nonfungiblePositionManager), amountAdd0 );
+        // TransferHelper.safeApprove(inputToken2, address(nonfungiblePositionManager), amountAdd1 );
+        uniToken.approve(address(nonfungiblePositionManager), amountAdd0);
+        wethToken.approve(address(nonfungiblePositionManager), amountAdd1);
         INonfungiblePositionManager.IncreaseLiquidityParams memory params = INonfungiblePositionManager.IncreaseLiquidityParams({
                     tokenId: tokenId,
                     amount0Desired: amountAdd0,
@@ -168,11 +174,31 @@ abstract contract SwapToken is MulSigModify, IERC721Receiver {
                     deadline: block.timestamp
                 });
 
-        bytes memory paramsBytes = abi.encodeWithSignature("increaseLiquidity((uint256, uint256 , uint256, uint256, uint256, uint256))", params);
-        (bool success, bytes memory returnDatas) = address(nonfungiblePositionManager).call(paramsBytes);
-        require(success, 'exec increaseLiquidityCurrentRange faile');
+        bytes memory minitParamsBytes = abi.encodeWithSignature("increaseLiquidity((uint256, uint256, uint256, uint256, uint256, uint256))", params);
+        (bool success, bytes memory returnDatas) = address(nonfungiblePositionManager).call(minitParamsBytes);
+        // require(success, 'exec increaseLiquidityCurrentRange faile');
         (liquidity, amount0, amount1) = abi.decode(returnDatas, ( uint128, uint256, uint256));
         // (liquidity, amount0, amount1) = nonfungiblePositionManager.increaseLiquidity(params);
+    }
+
+    function aaaa(uint256 tokenId,uint256 amount0ToAdd,uint256 amount1ToAdd) external returns (uint128 liquidity, uint256 amount0, uint256 amount1) {
+       
+        uniToken.approve(address(nonfungiblePositionManager), amount0ToAdd);
+        wethToken.approve(address(nonfungiblePositionManager), amount1ToAdd);
+
+        INonfungiblePositionManager.IncreaseLiquidityParams memory params =
+        INonfungiblePositionManager.IncreaseLiquidityParams({
+            tokenId: tokenId,
+            amount0Desired: amount0ToAdd,
+            amount1Desired: amount1ToAdd,
+            amount0Min: 0,
+            amount1Min: 0,
+            deadline: block.timestamp
+        });
+
+        (liquidity, amount0, amount1) = nonfungiblePositionManager.increaseLiquidity(params);
+
+        return (liquidity, amount0, amount1);
     }
 
 
@@ -181,7 +207,7 @@ abstract contract SwapToken is MulSigModify, IERC721Receiver {
     function destoryLiquidity(uint256 tokenId) external onlyOwner {
          bytes memory paramsBytes = abi.encodeWithSignature("burn(uint256)", tokenId);
          (bool success, ) = address(nonfungiblePositionManager).call(paramsBytes);
-         require(success, 'exec destoryLiquidity faile');
+        //  require(success, 'exec destoryLiquidity faile');
     }
 
 
@@ -211,6 +237,14 @@ abstract contract SwapToken is MulSigModify, IERC721Receiver {
     function withdraw() public {
         require(address(this).balance > 0, "no money");
         payable(msg.sender).transfer(address(this).balance);
+    }
+
+    function uniBalance() public view returns (uint256){
+         return uniToken.balanceOf(address(this));
+    }
+
+     function ethBalance() public view returns (uint256){
+         return wethToken.balanceOf(address(this));
     }
 
 }

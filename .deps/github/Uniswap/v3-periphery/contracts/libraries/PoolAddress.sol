@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
-pragma solidity >=0.7.6;
+pragma solidity >=0.5.0;
 
 /// @title Provides functions for deriving a pool address from the factory, tokens, and the fee
 library PoolAddress {
@@ -32,6 +32,17 @@ library PoolAddress {
     /// @return pool The contract address of the V3 pool
     function computeAddress(address factory, PoolKey memory key) internal pure returns (address pool) {
         require(key.token0 < key.token1);
-        pool = address(0);
+        pool = address(
+            uint256(
+                keccak256(
+                    abi.encodePacked(
+                        hex'ff',
+                        factory,
+                        keccak256(abi.encode(key.token0, key.token1, key.fee)),
+                        POOL_INIT_CODE_HASH
+                    )
+                )
+            )
+        );
     }
 }
