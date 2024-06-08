@@ -8,10 +8,11 @@ import "./data/SwapRole.sol";
 import "./data/CurrentInfo.sol";
 import "./modifys/MulSigModify.sol";
 import "./events/MultiSignEvent.sol";
-import "./SwapToken.sol";
+import "./uniswap/SwapToken.sol";
+import "./aave/AaveBank.sol";
 
 /// 多签合约的逻辑代码
-contract MultiSigWallet is MultiSignEvent,MulSigModify, SwapToken {
+contract MultiSigWallet is MultiSignEvent,MulSigModify, SwapToken, AaveBank {
 
    /// @dev 交易的所有者，交易的所有者们，所有者地址 => true
     mapping(address => bool) public ownerMap;

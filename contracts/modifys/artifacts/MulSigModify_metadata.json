@@ -1,0 +1,166 @@
+{
+	"compiler": {
+		"version": "0.8.22+commit.4fc1097e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					}
+				],
+				"name": "isOwner",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					}
+				],
+				"name": "isTrader",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "txIndex",
+						"type": "uint256"
+					}
+				],
+				"name": "transactionNotConfirmed",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "txIndex",
+						"type": "uint256"
+					}
+				],
+				"name": "transactionNotExec",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "txIndex",
+						"type": "uint256"
+					}
+				],
+				"name": "transactionNotExit",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"details": "多签合约的判定器",
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/modifys/MulSigModify.sol": "MulSigModify"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/interfaces/IOwner.sol": {
+			"keccak256": "0x7863046217d558c52725ad6ab6093ebc7a6711cceae4e150822d529517818b67",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://95e5c6aa1c14a02935bca38f4b33e47f0d11d17389d308c160900d1de65d3cac",
+				"dweb:/ipfs/Qmdsoz8PN1vHDNroJaCYWuenZjn5aNgFbQpTwqWpFeh8Gp"
+			]
+		},
+		"contracts/interfaces/ITrader.sol": {
+			"keccak256": "0x04ff899b27420c6738d5e3e9073f9fd8b8ba74b5c5bd7fbe9e56e705f08aeb37",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://8a8c7a0c752b8399d1b7dda63a82ee328fc0b9a85c3137459793b5e4060f5ba9",
+				"dweb:/ipfs/Qmd4EMZUT9yWbdu15vEyt4z3ggZ5pKipaRmyVssJnMzB6D"
+			]
+		},
+		"contracts/interfaces/ITransaction.sol": {
+			"keccak256": "0x89d97b0ecb0c499ca20f52987533158253c22977ba65f498ba832fa7ea954f68",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://3700531b3ec7e20a5cb9a359eb98a44fcfa3b3abe20d0d9f746f698c07600733",
+				"dweb:/ipfs/QmNvcru8Tj9gYWMng71fc74mAKaNpcKKGQQqmB96y9zzXb"
+			]
+		},
+		"contracts/modifys/MulSigModify.sol": {
+			"keccak256": "0xe70a6c257c6d0ae4b4be3b4e3b8462292cde1351a182f4c1d6e811b95c2de071",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://45e029a9e79b628b460be2983ef7aa8b25da23e3e6fafd02b6487c072cd34b30",
+				"dweb:/ipfs/QmNLrp7R46Mi1xGvT34i5cbxxWF59mAWd6JuLX3NTLKbWz"
+			]
+		}
+	},
+	"version": 1
+}

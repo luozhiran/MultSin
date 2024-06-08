@@ -1,0 +1,282 @@
+{
+	"compiler": {
+		"version": "0.8.22+commit.4fc1097e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					}
+				],
+				"name": "isOwner",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					}
+				],
+				"name": "isTrader",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "pool",
+				"outputs": [
+					{
+						"internalType": "contract IPool",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "asset",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "supplyLiquidity",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "txIndex",
+						"type": "uint256"
+					}
+				],
+				"name": "transactionNotConfirmed",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "txIndex",
+						"type": "uint256"
+					}
+				],
+				"name": "transactionNotExec",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "txIndex",
+						"type": "uint256"
+					}
+				],
+				"name": "transactionNotExit",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "tokenAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "withdrawlLiquidity",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {
+				"supplyLiquidity(address,uint256)": {
+					"details": "把资产(代币)存储到aave中",
+					"params": {
+						"amount": "存储代币的数量",
+						"asset": "存储代币的token"
+					}
+				},
+				"withdrawlLiquidity(address,uint256)": {
+					"details": "把资产(代币)从aave中取出来",
+					"params": {
+						"amount": "取出代币的数量",
+						"tokenAddress": "存储在aave中的token，不是地址"
+					}
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"supplyLiquidity(address,uint256)": {
+					"notice": "把资产(代币)存储到aave中"
+				},
+				"withdrawlLiquidity(address,uint256)": {
+					"notice": "把资产(代币)从aave中取出来"
+				}
+			},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/aave/AaveBank.sol": "AaveBank"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@aave/core-v3/contracts/interfaces/IPool.sol": {
+			"keccak256": "0x4147e738e86f489f1ea95218c05c919a7d803e1836061bd585c2c9c4ebea7f6e",
+			"license": "AGPL-3.0",
+			"urls": [
+				"bzz-raw://f57b2f7352bc30583a1c5fb6dbe2a254b29580b30e1042b7c0c9ace71623c0d2",
+				"dweb:/ipfs/QmdBjF5Sg62RS231UBHspQVJ2eXoHzoo1APhxnSjq4TMZ6"
+			]
+		},
+		"@aave/core-v3/contracts/interfaces/IPoolAddressesProvider.sol": {
+			"keccak256": "0x9fb52c60fe126985c8ddba7678e8bc3c70a0565ca42997d8366575df86763301",
+			"license": "AGPL-3.0",
+			"urls": [
+				"bzz-raw://5fe38259079f09ce73572cd3b975bc4708e6303de89f242d47c9492803469d96",
+				"dweb:/ipfs/QmWnWL6PqmYn2H4yAqhQSHGRTyaDB9w4pzazJ9qxarKii9"
+			]
+		},
+		"@aave/core-v3/contracts/protocol/libraries/types/DataTypes.sol": {
+			"keccak256": "0x771cb99fd8519c974f7e12130387c4d9a997a6e8d0ac10e4303b842fe53efa88",
+			"license": "BUSL-1.1",
+			"urls": [
+				"bzz-raw://0f41689d1d58bc13678c749bae8830f5a8b19b89cd135e962bf07d483350f828",
+				"dweb:/ipfs/QmQSNGDxjYGqT1GU2CZzsWUTNcAtcfkg1jDGTH516nCAfN"
+			]
+		},
+		"contracts/aave/AaveBank.sol": {
+			"keccak256": "0x740407a005217d0b38f8a578a5e5ee5791b44e9528235a9cd75c3281dc169f98",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://fc6c2ea8a8db16891e50bbb59ba3d1defdd7386589f8c9cf2c25a98b6f6ddcfe",
+				"dweb:/ipfs/QmbqzmZ13159LuhRjK6yL2UoGamGhDnzwnxEAYQ3eLPN2d"
+			]
+		},
+		"contracts/interfaces/IIERC20.sol": {
+			"keccak256": "0xb9b11448bf617512ff7324aee629199f236434f7858c3bda1e77e1f78c8bc08a",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://3ea10e9356cf9bafefaf818c7eb83e1dcd5bba62088e4532fd120dc2e45cadef",
+				"dweb:/ipfs/QmRMwMzz1V8WnCZ1QprLzXBkjtJsihtooDLqtYvNP9Gcp5"
+			]
+		},
+		"contracts/interfaces/IOwner.sol": {
+			"keccak256": "0x7863046217d558c52725ad6ab6093ebc7a6711cceae4e150822d529517818b67",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://95e5c6aa1c14a02935bca38f4b33e47f0d11d17389d308c160900d1de65d3cac",
+				"dweb:/ipfs/Qmdsoz8PN1vHDNroJaCYWuenZjn5aNgFbQpTwqWpFeh8Gp"
+			]
+		},
+		"contracts/interfaces/ITrader.sol": {
+			"keccak256": "0x04ff899b27420c6738d5e3e9073f9fd8b8ba74b5c5bd7fbe9e56e705f08aeb37",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://8a8c7a0c752b8399d1b7dda63a82ee328fc0b9a85c3137459793b5e4060f5ba9",
+				"dweb:/ipfs/Qmd4EMZUT9yWbdu15vEyt4z3ggZ5pKipaRmyVssJnMzB6D"
+			]
+		},
+		"contracts/interfaces/ITransaction.sol": {
+			"keccak256": "0x89d97b0ecb0c499ca20f52987533158253c22977ba65f498ba832fa7ea954f68",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://3700531b3ec7e20a5cb9a359eb98a44fcfa3b3abe20d0d9f746f698c07600733",
+				"dweb:/ipfs/QmNvcru8Tj9gYWMng71fc74mAKaNpcKKGQQqmB96y9zzXb"
+			]
+		},
+		"contracts/modifys/MulSigModify.sol": {
+			"keccak256": "0xe70a6c257c6d0ae4b4be3b4e3b8462292cde1351a182f4c1d6e811b95c2de071",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://45e029a9e79b628b460be2983ef7aa8b25da23e3e6fafd02b6487c072cd34b30",
+				"dweb:/ipfs/QmNLrp7R46Mi1xGvT34i5cbxxWF59mAWd6JuLX3NTLKbWz"
+			]
+		}
+	},
+	"version": 1
+}

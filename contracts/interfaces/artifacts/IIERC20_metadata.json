@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.25+commit.b61c2a91"
+		"version": "0.8.22+commit.4fc1097e"
 	},
 	"language": "Solidity",
 	"output": {
@@ -154,24 +154,24 @@
 		"compilationTarget": {
 			"contracts/interfaces/IIERC20.sol": "IIERC20"
 		},
-		"evmVersion": "cancun",
+		"evmVersion": "shanghai",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
 			"enabled": true,
-			"runs": 2000
+			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
 		"contracts/interfaces/IIERC20.sol": {
-			"keccak256": "0xf3672229dd47a27b05c5b2edab107d62a436875f29741f2eeaa1f7840ec746f0",
+			"keccak256": "0xb9b11448bf617512ff7324aee629199f236434f7858c3bda1e77e1f78c8bc08a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://cb1ecd46c853b9faf9f51f32af248806bf3187de741678ea291cb9778e925556",
-				"dweb:/ipfs/QmaWDmdsf2KVu5Z1cAHx5Pnj46isTMEXduezBn46p53Qg3"
+				"bzz-raw://3ea10e9356cf9bafefaf818c7eb83e1dcd5bba62088e4532fd120dc2e45cadef",
+				"dweb:/ipfs/QmRMwMzz1V8WnCZ1QprLzXBkjtJsihtooDLqtYvNP9Gcp5"
 			]
 		}
 	},

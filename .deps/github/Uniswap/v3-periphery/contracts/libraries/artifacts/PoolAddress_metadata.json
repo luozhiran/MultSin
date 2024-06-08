@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.7.6+commit.7338295f"
+		"version": "0.8.22+commit.4fc1097e"
 	},
 	"language": "Solidity",
 	"output": {
@@ -21,7 +21,7 @@
 		"compilationTarget": {
 			".deps/github/Uniswap/v3-periphery/contracts/libraries/PoolAddress.sol": "PoolAddress"
 		},
-		"evmVersion": "istanbul",
+		"evmVersion": "shanghai",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -34,11 +34,11 @@
 	},
 	"sources": {
 		".deps/github/Uniswap/v3-periphery/contracts/libraries/PoolAddress.sol": {
-			"keccak256": "0x93ce92b385a185c49189fcfda8d5dc917667cf576ffed933151d661da0563fe8",
+			"keccak256": "0x1a282547ae4326feb97fbb4a3a666f3c20739b07e0368ead986641f9d0d95e94",
 			"license": "GPL-2.0-or-later",
 			"urls": [
-				"bzz-raw://0147e5f43e59363370d7039b68d3efd30e70939c9b5ef59ae8a0b2c75b4261fd",
-				"dweb:/ipfs/QmQET5RNsvpqrV2AuXcfa6L1TcK8wfRBcKJMLVezFW4yHa"
+				"bzz-raw://5ed8534eb7c0a03f4d67432e7a667b45d970825d42a67205ddd7b71bc8097e82",
+				"dweb:/ipfs/QmWK4EqghbXmgmmgHByaWXpFGKeXkqzzoAbdct2sX3huGk"
 			]
 		}
 	},

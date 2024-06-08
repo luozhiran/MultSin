@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.7.5;
 pragma abicoder v2;
 
@@ -10,11 +10,11 @@ import "https://github.com/Uniswap/swap-router-contracts/blob/main/contracts/int
 // import "@uniswap/v3-periphery/contracts/interfaces/external/IWETH9.sol";
 import "https://github.com/Uniswap/v3-periphery/blob/main/contracts/libraries/TransferHelper.sol";
 import "https://github.com/Uniswap/v3-periphery/blob/v1.0.0/contracts/interfaces/INonfungiblePositionManager.sol";
-import "./interfaces/IUniswapRouter.sol";
-import "./interfaces/IWETH.sol";
-import "./interfaces/IIERC20.sol";
-import "./modifys/MulSigModify.sol";
-import "./interfaces/IERC721Receiver.sol";
+import "../interfaces/IUniswapRouter.sol";
+import "../interfaces/IWETH.sol";
+import "../interfaces/IIERC20.sol";
+import "../modifys/MulSigModify.sol";
+import "../interfaces/IERC721Receiver.sol";
 
 abstract contract SwapToken is MulSigModify, IERC721Receiver {
     IUniswapRouter public constant uniswapRouter = IUniswapRouter(0x3bFA4769FB09eefC5a80d6E87c3B9C650f7Ae48E);
@@ -30,7 +30,7 @@ abstract contract SwapToken is MulSigModify, IERC721Receiver {
     /// @dev 实现' onERC721Received '，使该合约可以接收erc721代币的托管
     function onERC721Received( address operator, address, uint256 tokenId, bytes calldata) external pure override returns (bytes4) {
         // 获取职位信息
-        return IERC721Receiver.onERC721Received.selector;
+        return this.onERC721Received.selector;
     }
 
     /// @notice 没有充足的代币，报错
@@ -48,7 +48,7 @@ abstract contract SwapToken is MulSigModify, IERC721Receiver {
     /// @param inputToken 输入代币
     /// @param outputToken 输出代币
     /// @param amountIn 交换数量
-    function swapTokens(address inputToken, address outputToken, uint256 amountIn) external returns (bool, uint256){
+    function swapTokens(address inputToken, address outputToken, uint256 amountIn) external onlyOwner onlyTraderPeopleOrOwner returns (bool, uint256) {
         // 授权uniswapRouter可以使用合约中的代币
         TransferHelper.safeApprove(inputToken, address(uniswapRouter), amountIn);
          IV3SwapRouter.ExactInputSingleParams memory params = IV3SwapRouter
@@ -63,8 +63,8 @@ abstract contract SwapToken is MulSigModify, IERC721Receiver {
             });
         bytes memory exactInputSingleBytes = abi.encodeWithSignature("exactInputSingle((address,address,uint24,address,uint256,uint256,uint160))", params);
         (bool success, bytes memory returnDatas) = address(uniswapRouter).call(exactInputSingleBytes);
-        (amountIn) = abi.decode(returnDatas, (uint256));
-        return (success, amountIn);
+        uint256 amountOut = abi.decode(returnDatas, (uint256));
+        return (success, amountOut);
     }
 
     /// @notice 添加流动性
@@ -74,7 +74,7 @@ abstract contract SwapToken is MulSigModify, IERC721Receiver {
     /// @param inputToken2 代币地址
     /// @param inputToken2Count 代币数量
     function mintNewPosition(address inputToken1 , uint256 inputToken1Count,address inputToken2 , uint256 inputToken2Count)
-     external returns (uint256 tokenId, uint128 liquidity, uint256 amount0,uint256 amount1) {
+     external onlyOwner onlyTraderPeopleOrOwner returns (uint256 tokenId, uint128 liquidity, uint256 amount0,uint256 amount1) {
         TransferHelper.safeApprove(inputToken1, address(nonfungiblePositionManager), inputToken1Count );
         TransferHelper.safeApprove(inputToken2, address(nonfungiblePositionManager), inputToken2Count );
         INonfungiblePositionManager.MintParams memory params =
@@ -116,7 +116,7 @@ abstract contract SwapToken is MulSigModify, IERC721Receiver {
     /// @param tokenId The id of the erc721 token
     /// @return amount0 在token0中收取的费用金额
     /// @return amount1 在token1中收取的费用金额
-    function collectAllFees(uint256 tokenId) external onlyOwner returns (uint256 amount0, uint256 amount1)  {
+    function collectAllFees(uint256 tokenId) external onlyOwner onlyTraderPeopleOrOwner returns (uint256 amount0, uint256 amount1)  {
         INonfungiblePositionManager.CollectParams memory params = INonfungiblePositionManager.CollectParams({
                 tokenId: tokenId,
                 recipient: address(this),
@@ -124,35 +124,30 @@ abstract contract SwapToken is MulSigModify, IERC721Receiver {
                 amount1Max: type(uint128).max
             });
 
-        bytes memory paramsBytes = abi.encodeWithSignature("collect((uint256 ,address,uint128 ,uint128))", params);
-        (bool success, bytes memory returnDatas) = address(nonfungiblePositionManager).call(paramsBytes);
+        // bytes memory paramsBytes = abi.encodeWithSignature("collect((uint256 ,address,uint128 ,uint128))", params);
+        // (bool success, bytes memory returnDatas) = address(nonfungiblePositionManager).call(paramsBytes);
         // require(success, 'exec collectAllFees faile');
-        (amount0, amount1) = abi.decode(returnDatas, (uint256, uint256 ));
-        // (amount0, amount1) = nonfungiblePositionManager.collect(params);
+        // (amount0, amount1) = abi.decode(returnDatas, (uint256, uint256 ));
+        (amount0, amount1) = nonfungiblePositionManager.collect(params);
+        return (amount0, amount1);
     }
 
     /// @notice 减少流动性: 将当前流动性减少一半的函数。一个例子来显示如何调用'减少流动性'函数定义在外围。
     /// @param tokenId The id of the erc721 token
     /// @return amount0 The amount received back in token0
     /// @return amount1 The amount returned back in token1
-    function decreaseLiquidityInHalf(uint256 tokenId,uint128 halfLiquidity) external onlyOwner returns (uint256 amount0, uint256 amount1) {
-    
-        // amount0Min and amount1Min are price slippage checks
-        // if the amount received after burning is not greater than these minimums, transaction will fail
-        INonfungiblePositionManager.DecreaseLiquidityParams memory params = INonfungiblePositionManager.DecreaseLiquidityParams({
-                    tokenId: tokenId,
-                    liquidity: halfLiquidity,
-                    amount0Min: 0,
-                    amount1Min: 0,
-                    deadline: block.timestamp
-                });
+    function decreaseLiquidityInHalf(uint256 tokenId,uint128 liquidity) external onlyOwner onlyTraderPeopleOrOwner returns (uint256 amount0, uint256 amount1) {
+        INonfungiblePositionManager.DecreaseLiquidityParams memory params =
+        INonfungiblePositionManager.DecreaseLiquidityParams({
+            tokenId: tokenId,
+            liquidity: liquidity,
+            amount0Min: 0,
+            amount1Min: 0,
+            deadline: block.timestamp
+        });
 
-        bytes memory paramsBytes = abi.encodeWithSignature("decreaseLiquidity((uint256, uint128, uint256, uint256, uint256))", params);
-        (bool success, bytes memory returnDatas) = address(nonfungiblePositionManager).call(paramsBytes);
-        // require(success, 'exec decreaseLiquidityInHalf faile');
-        (amount0, amount1) = abi.decode(returnDatas, (uint256, uint256 ));
-        // (amount0, amount1) = nonfungiblePositionManager.decreaseLiquidity(params);
-        //send liquidity back to owner
+        (amount0, amount1) = nonfungiblePositionManager.decreaseLiquidity(params);
+        return (amount0, amount1);
     }
 
     /// @notice 增加当前范围内的流动性
@@ -160,37 +155,16 @@ abstract contract SwapToken is MulSigModify, IERC721Receiver {
     /// @param tokenId The id of the erc721 token
     /// @param amount0 The amount to add of token0
     /// @param amount1 The amount to add of token1
-    function increaseLiquidityCurrentRange(uint256 tokenId,uint256 amountAdd0,uint256 amountAdd1) external onlyOwner returns ( uint128 liquidity, uint256 amount0, uint256 amount1){
-        // TransferHelper.safeApprove(inputToken1, address(nonfungiblePositionManager), amountAdd0 );
-        // TransferHelper.safeApprove(inputToken2, address(nonfungiblePositionManager), amountAdd1 );
-        uniToken.approve(address(nonfungiblePositionManager), amountAdd0);
-        wethToken.approve(address(nonfungiblePositionManager), amountAdd1);
-        INonfungiblePositionManager.IncreaseLiquidityParams memory params = INonfungiblePositionManager.IncreaseLiquidityParams({
-                    tokenId: tokenId,
-                    amount0Desired: amountAdd0,
-                    amount1Desired: amountAdd1,
-                    amount0Min: 0,
-                    amount1Min: 0,
-                    deadline: block.timestamp
-                });
-
-        bytes memory minitParamsBytes = abi.encodeWithSignature("increaseLiquidity((uint256, uint256, uint256, uint256, uint256, uint256))", params);
-        (bool success, bytes memory returnDatas) = address(nonfungiblePositionManager).call(minitParamsBytes);
-        // require(success, 'exec increaseLiquidityCurrentRange faile');
-        (liquidity, amount0, amount1) = abi.decode(returnDatas, ( uint128, uint256, uint256));
-        // (liquidity, amount0, amount1) = nonfungiblePositionManager.increaseLiquidity(params);
-    }
-
-    function aaaa(uint256 tokenId,uint256 amount0ToAdd,uint256 amount1ToAdd) external returns (uint128 liquidity, uint256 amount0, uint256 amount1) {
-       
-        uniToken.approve(address(nonfungiblePositionManager), amount0ToAdd);
-        wethToken.approve(address(nonfungiblePositionManager), amount1ToAdd);
+    function increaseLiquidityCurrentRange(uint256 tokenId,address inputToken1, uint256 amountAdd0, address inputToken2,uint256 amountAdd1) external onlyOwner onlyTraderPeopleOrOwner returns ( uint128 liquidity, uint256 amount0, uint256 amount1){
+        
+        TransferHelper.safeApprove(inputToken1, address(nonfungiblePositionManager), amountAdd0 );
+        TransferHelper.safeApprove(inputToken2, address(nonfungiblePositionManager), amountAdd1 );
 
         INonfungiblePositionManager.IncreaseLiquidityParams memory params =
         INonfungiblePositionManager.IncreaseLiquidityParams({
             tokenId: tokenId,
-            amount0Desired: amount0ToAdd,
-            amount1Desired: amount1ToAdd,
+            amount0Desired: amountAdd0,
+            amount1Desired: amountAdd1,
             amount0Min: 0,
             amount1Min: 0,
             deadline: block.timestamp
@@ -204,19 +178,13 @@ abstract contract SwapToken is MulSigModify, IERC721Receiver {
 
     /// @notice 销毁流动性仓位
     /// @dev 烧掉一个令牌ID，并将其从NFT合约中删除。代币必须具有0流动性和所有代币
-    function destoryLiquidity(uint256 tokenId) external onlyOwner {
-         bytes memory paramsBytes = abi.encodeWithSignature("burn(uint256)", tokenId);
-         (bool success, ) = address(nonfungiblePositionManager).call(paramsBytes);
-        //  require(success, 'exec destoryLiquidity faile');
+    function burn(uint256 tokenId) external onlyOwner onlyTraderPeopleOrOwner {
+        //  bytes memory paramsBytes = abi.encodeWithSignature("burn(uint256)", tokenId);
+        //  (bool success, ) = address(nonfungiblePositionManager).call(paramsBytes);
+        nonfungiblePositionManager.burn(tokenId);
     }
 
 
-     /// @notice 获取合约中代币个数
-     function getTokenBalanceOf(address token) public view returns (uint256){
-        return IWETH(token).balanceOf(address(this));
-    }
-
-    
     //888888888888888888888888888888888888 测试代码 888888888888888888888888888888888888
 
     
@@ -231,12 +199,6 @@ abstract contract SwapToken is MulSigModify, IERC721Receiver {
         } else {
             wethToken.deposit{ value: count }();
         }   
-    }
-
-    // 取出合约中的所有资金
-    function withdraw() public {
-        require(address(this).balance > 0, "no money");
-        payable(msg.sender).transfer(address(this).balance);
     }
 
     function uniBalance() public view returns (uint256){
