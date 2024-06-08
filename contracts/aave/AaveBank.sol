@@ -16,7 +16,8 @@ abstract contract AaveBank is MulSigModify {
     function supplyLiquidity(address asset, uint256 amount) external onlyTraderPeopleOrOwner {
         require(address(0) != asset, "invalid token");
         require(amount > 0, "input count must then 0");
-        pool.supply(asset, amount, address(this), 0);
+        bytes memory minitParamsBytes = abi.encodeWithSignature("supply(address,uint256,address,uint16)", asset, amount, address(this), 0);
+        (bool success,) =  address(pool).call(minitParamsBytes);
     }
 
     /// @notice 把资产(代币)从aave中取出来

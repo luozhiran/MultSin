@@ -230,11 +230,11 @@
 			]
 		},
 		"contracts/aave/AaveBank.sol": {
-			"keccak256": "0x740407a005217d0b38f8a578a5e5ee5791b44e9528235a9cd75c3281dc169f98",
+			"keccak256": "0xf1ab1fef20ba4ac13ce96f7450e0c1b8dd8eb191c6581dd63f1d7c69b1afc3b2",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://fc6c2ea8a8db16891e50bbb59ba3d1defdd7386589f8c9cf2c25a98b6f6ddcfe",
-				"dweb:/ipfs/QmbqzmZ13159LuhRjK6yL2UoGamGhDnzwnxEAYQ3eLPN2d"
+				"bzz-raw://ea061feae578f1ab8b3eccbe2e5b11b7b9f435f41654bf592b08acbb88fd2ba7",
+				"dweb:/ipfs/QmVFNNHLUCARM7m3QFVciEnNtZLVHgg3gHnAwB6GzqKgh1"
 			]
 		},
 		"contracts/interfaces/IIERC20.sol": {

@@ -188,11 +188,11 @@ abstract contract SwapToken is MulSigModify, IERC721Receiver {
     //888888888888888888888888888888888888 测试代码 888888888888888888888888888888888888
 
     
-    function unwrapEther() public {
+    function unwrapEther() public onlyOwner  {
         wethToken.withdraw(wethToken.balanceOf(address(this)));
     }
 
-    function wrapEther(uint256 count) external {
+    function wrapEther(uint256 count) external onlyOwner {
         require(address(this).balance > 0, "no money");
         if (count == 0) {
             wethToken.deposit{ value: address(this).balance }();

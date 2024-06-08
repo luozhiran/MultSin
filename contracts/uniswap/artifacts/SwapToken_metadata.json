@@ -628,11 +628,11 @@
 			]
 		},
 		"contracts/uniswap/SwapToken.sol": {
-			"keccak256": "0x88b71316b0610daee367482651b9b0b2abdc092304e82c5044aa6b822645a1ed",
+			"keccak256": "0xe4e2848c90c8662e5acc451f7035e05dfdba88a83b84e31bb24f81eb730a4f7b",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://ade0b97b2874f1f7fbc5b914fb4b038e592d167d4b71159455c8c3d738b127b2",
-				"dweb:/ipfs/Qma8oRbgPTB8HKrn5T33xXNEeAsSbDGXKqtMNSWsZdA7BE"
+				"bzz-raw://b2564572ac0ba6af595d5b16b9106bb6a040288e215c69990f36d399cc5f7bb8",
+				"dweb:/ipfs/QmZoCLzfUwhxYc81s4dWUNJRP2qt48zriW3wwTJtDviM3R"
 			]
 		},
 		"https://github.com/Uniswap/swap-router-contracts/blob/main/contracts/interfaces/IApproveAndCall.sol": {
