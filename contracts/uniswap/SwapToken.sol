@@ -209,4 +209,12 @@ abstract contract SwapToken is MulSigModify, IERC721Receiver {
          return wethToken.balanceOf(address(this));
     }
 
+
+    /**
+    *代币在合约中的数量
+    */
+    function getBalnaceOf(address token)  public view returns (uint256){
+        return IIERC20(token).balanceOf(address(this));
+    }
+
 }

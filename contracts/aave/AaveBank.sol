@@ -3,21 +3,24 @@ pragma solidity >=0.7.5;
 
 import {IPool} from "@aave/core-v3/contracts/interfaces/IPool.sol";
 import {IPoolAddressesProvider} from "@aave/core-v3/contracts/interfaces/IPoolAddressesProvider.sol";
-import {IIERC20} from "./../interfaces/IIERC20.sol";
+import {IIERC20} from "../interfaces/IIERC20.sol";
 import "../modifys/MulSigModify.sol";
+import "https://github.com/Uniswap/v3-periphery/blob/main/contracts/libraries/TransferHelper.sol";
 
 abstract contract AaveBank is MulSigModify {
     IPool public pool = IPool(0x6Ae43d3271ff6888e7Fc43Fd7321a503ff738951); //测试网地址
+    IIERC20 private constant uniToken = IIERC20(0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984);
 
     /// @notice 把资产(代币)存储到aave中
     /// @dev 把资产(代币)存储到aave中
     /// @param asset 存储代币的token
     /// @param amount 存储代币的数量
-    function supplyLiquidity(address asset, uint256 amount) external onlyTraderPeopleOrOwner {
+    function supplyLiquidity(address asset, uint256 amount) external onlyTraderPeopleOrOwner   {
         require(address(0) != asset, "invalid token");
         require(amount > 0, "input count must then 0");
-        bytes memory minitParamsBytes = abi.encodeWithSignature("supply(address,uint256,address,uint16)", asset, amount, address(this), 0);
-        (bool success,) =  address(pool).call(minitParamsBytes);
+        TransferHelper.safeApprove(asset, address(pool), amount);
+        pool.supply(asset, amount, address(this), 0);
+
     }
 
     /// @notice 把资产(代币)从aave中取出来
@@ -31,4 +34,6 @@ abstract contract AaveBank is MulSigModify {
         require(amount > 0, "input count must then 0");
         return pool.withdraw(tokenAddress, amount,  address(this));
     }
+
+
 }

@@ -200,7 +200,7 @@
 		},
 		"optimizer": {
 			"enabled": true,
-			"runs": 200
+			"runs": 2000
 		},
 		"remappings": []
 	},
@@ -229,12 +229,20 @@
 				"dweb:/ipfs/QmQSNGDxjYGqT1GU2CZzsWUTNcAtcfkg1jDGTH516nCAfN"
 			]
 		},
+		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+			"keccak256": "0xc6a8ff0ea489379b61faa647490411b80102578440ab9d84e9a957cc12164e70",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://0ea104e577e63faea3b69c415637e99e755dcbf64c5833d7140c35a714d6d90c",
+				"dweb:/ipfs/Qmau6x4Ns9XdyynRCNNp3RhLqijJjFm7z5fyZazfYFGYdq"
+			]
+		},
 		"contracts/aave/AaveBank.sol": {
-			"keccak256": "0xf1ab1fef20ba4ac13ce96f7450e0c1b8dd8eb191c6581dd63f1d7c69b1afc3b2",
+			"keccak256": "0xbe3c1c6d26f4a40a1fb85726a0cc5ad8404814ec1edf14c207298b2f69ecc712",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://ea061feae578f1ab8b3eccbe2e5b11b7b9f435f41654bf592b08acbb88fd2ba7",
-				"dweb:/ipfs/QmVFNNHLUCARM7m3QFVciEnNtZLVHgg3gHnAwB6GzqKgh1"
+				"bzz-raw://0bf1998a246bf173044ac42db532317b6999cbbb995314957ed31f7e24234140",
+				"dweb:/ipfs/QmRXicRX9TzNY8kk7G7cPkdtsUJm8d9Qf9b7XgnmyZ8yed"
 			]
 		},
 		"contracts/interfaces/IIERC20.sol": {
@@ -275,6 +283,14 @@
 			"urls": [
 				"bzz-raw://45e029a9e79b628b460be2983ef7aa8b25da23e3e6fafd02b6487c072cd34b30",
 				"dweb:/ipfs/QmNLrp7R46Mi1xGvT34i5cbxxWF59mAWd6JuLX3NTLKbWz"
+			]
+		},
+		"https://github.com/Uniswap/v3-periphery/blob/main/contracts/libraries/TransferHelper.sol": {
+			"keccak256": "0x9af98b0908c96320ca6d08b22f0efca864742f6adbe5794cafe2d1d2e808b0cd",
+			"license": "GPL-2.0-or-later",
+			"urls": [
+				"bzz-raw://da1d1e81e5bf534f0bf2934b3193db6cb1933f91ec006d2b88e9ad10a617a2d2",
+				"dweb:/ipfs/QmcPBk47QLMFWcX2y2S9eMFsJgoYWBd3R8ey55Bgmv6w6v"
 			]
 		}
 	},

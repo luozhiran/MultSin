@@ -87,6 +87,25 @@
 			{
 				"inputs": [
 					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					}
+				],
+				"name": "getBalnaceOf",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "uint256",
 						"name": "tokenId",
 						"type": "uint256"
@@ -473,6 +492,9 @@
 				"decreaseLiquidityInHalf(uint256,uint128)": {
 					"notice": "减少流动性: 将当前流动性减少一半的函数。一个例子来显示如何调用'减少流动性'函数定义在外围。"
 				},
+				"getBalnaceOf(address)": {
+					"notice": "代币在合约中的数量"
+				},
 				"increaseLiquidityCurrentRange(uint256,address,uint256,address,uint256)": {
 					"notice": "增加当前范围内的流动性"
 				},
@@ -494,7 +516,7 @@
 		},
 		"optimizer": {
 			"enabled": true,
-			"runs": 200
+			"runs": 2000
 		},
 		"remappings": []
 	},
@@ -628,11 +650,11 @@
 			]
 		},
 		"contracts/uniswap/SwapToken.sol": {
-			"keccak256": "0xe4e2848c90c8662e5acc451f7035e05dfdba88a83b84e31bb24f81eb730a4f7b",
+			"keccak256": "0x73658503292e690188e12878549cf0a6e896fdee597605f79e9ae9d6c3bbccb5",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://b2564572ac0ba6af595d5b16b9106bb6a040288e215c69990f36d399cc5f7bb8",
-				"dweb:/ipfs/QmZoCLzfUwhxYc81s4dWUNJRP2qt48zriW3wwTJtDviM3R"
+				"bzz-raw://49f1ae2421f4e6db971ba54089763ccc4c59a94534e2a5ff1d76b43d2a76bc88",
+				"dweb:/ipfs/QmeB7yJQ996cBjRdbkQWz3KhboyG8H2iF7vAqbsmuLDiU2"
 			]
 		},
 		"https://github.com/Uniswap/swap-router-contracts/blob/main/contracts/interfaces/IApproveAndCall.sol": {

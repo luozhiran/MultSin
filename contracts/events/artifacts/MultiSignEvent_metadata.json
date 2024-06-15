@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.25+commit.b61c2a91"
+		"version": "0.8.22+commit.4fc1097e"
 	},
 	"language": "Solidity",
 	"output": {
@@ -181,7 +181,7 @@
 		"compilationTarget": {
 			"contracts/events/MultiSignEvent.sol": "MultiSignEvent"
 		},
-		"evmVersion": "cancun",
+		"evmVersion": "shanghai",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -194,11 +194,11 @@
 	},
 	"sources": {
 		"contracts/events/MultiSignEvent.sol": {
-			"keccak256": "0xf37a003ab10314c6d60424641f6fd8e1247c79801bbc691e2ba91eff58d47d46",
+			"keccak256": "0x9298e2632a25f6f045707d3ebcd7ca50c2e0edcd2c04421fd2ca23fd1d4c16ee",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://c5a4f922dd95aadd47f97656557ca305098d2c1040da62b7abdc2ac76a6cd477",
-				"dweb:/ipfs/QmVqguR2fSSmG1b2bmSg3a3J9kXNDvaonVGRykbcUtzWC6"
+				"bzz-raw://16e79cfa37f210664f629087fcef7b7ad40ca68306afae590c2bd39b6ed1ebfb",
+				"dweb:/ipfs/QmV5enQQihbXgt1cPXB4KHUdbyQUyy9LEphKRrE5nR9Kr5"
 			]
 		}
 	},
